@@ -3,6 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
       xmlns:h="http://java.sun.com/jsf/html">
 
     <h:head>
@@ -11,10 +12,28 @@
     <h:body>
     	<h2>JSF 2.0 Hello World Example </h2>
     	<h:form>
-    	   <h:inputText value="#{indexBean.mesaj}"></h:inputText>
+    	   <p:inputText value="#{indexBean.mesaj}"></p:inputText>
     	   
     	   
-    	   <h:commandButton value="Butona Tıkla" actionListener="#{indexBean.butonaTiklandi}"></h:commandButton>
+    	   <p:commandButton icon="ui-icon-disk" value="Butona Tıkla" actionListener="#{indexBean.butonaTiklandi}"></p:commandButton>
+    	   
+    	   
+    	   <p:dataTable value="#{indexBean.list}" var="kisi" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+    			<p:column>
+    				<f:facet name="header">Ad Soyad</f:facet>
+    				<h:outputText value="#{kisi.adSoyad}" />
+    			</p:column>
+    			<p:column>
+    				<f:facet name="header">Okul</f:facet>
+    				<h:outputText value="#{kisi.okul}" />
+    			</p:column>
+    			<p:column>
+    				<f:facet name="header">Adres</f:facet>
+    				<h:outputText value="#{kisi.adres}" />
+    			</p:column>
+    		</p:dataTable>
     	</h:form>
     </h:body>
 </html>
