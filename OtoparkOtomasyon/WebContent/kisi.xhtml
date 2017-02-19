@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Kişi İşlemleri</title>
+</h:head>
+<h:body>
+	<h2>Kişi İşlemleri</h2>
+	<h:form id="frmKisi">
+		<p:dataTable id="tblKisi" widgetVar="tblKisi" var="k" value="#{kisiBean.kisis}" rows="10"
+			paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,100">
+			<p:column headerText="Id">
+				<h:outputText value="#{k.id}" />
+			</p:column>
+
+			<p:column headerText="Ad">
+				<h:outputText value="#{k.ad}" />
+			</p:column>
+
+			<p:column headerText="Soyad">
+				<h:outputText value="#{k.soyad}" />
+			</p:column>
+			
+			<p:column headerText="TC">
+				<h:outputText value="#{k.tc}" />
+			</p:column>
+			
+			<p:column headerText="Baba Adı">
+				<h:outputText value="#{k.babaAdi}" />
+			</p:column>
+			
+			<p:column headerText="Ana Adı">
+				<h:outputText value="#{k.anaAdi}" />
+			</p:column>
+			
+			<p:column headerText="Adres">
+				<h:outputText value="#{k.acikAdres}" />
+			</p:column>
+			
+			<p:column headerText="İşlemler">
+				<p:commandButton icon="ui-icon-pencil" update=":frmKisi:dlgKisi" actionListener="#{kisiBean.seciliKayit(k.id)}" oncomplete="PF('dlgKisi').show()"></p:commandButton>
+				<p:commandButton icon="ui-icon-trash" actionListener="#{kisiBean.seciliyiSil(k.id)}" update=":frmKisi:tblKisi">
+					 <p:confirm header="Silme Onay" message="Kayıt Silinsin mi?" icon="ui-icon-alert" />
+				</p:commandButton>
+				 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			        <p:commandButton value="Evet" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			        <p:commandButton value="Hayır" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			    </p:confirmDialog>
+			</p:column>
+		</p:dataTable>
+		
+		
+		<p:commandButton value="Yeni" actionListener="#{kisiBean.yeni}" update=":frmKisi:dlgKisi" oncomplete="PF('dlgKisi').show()"></p:commandButton>
+		
+		<p:dialog id="dlgKisi" widgetVar="dlgKisi" width="400" resizable="false" header="Kişi Kaydı" modal="true" >
+			
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Adı:"></p:outputLabel>
+				<p:inputText value="#{kisiBean.kisi.ad}"></p:inputText>
+				
+				<p:outputLabel value="Soyadı :"></p:outputLabel>
+				<p:inputText value="#{kisiBean.kisi.soyad}"></p:inputText>
+								
+				<p:outputLabel value="Ana Adı:"></p:outputLabel>
+				<p:inputText value="#{kisiBean.kisi.anaAdi}"></p:inputText>
+				
+				<p:outputLabel value="Baba Adı:"></p:outputLabel>
+				<p:inputText value="#{kisiBean.kisi.babaAdi}"></p:inputText>
+				
+				<p:outputLabel value="Doğum Tarihi :"></p:outputLabel>
+				<p:calendar locale="tr" value="#{kisiBean.kisi.dogumTarihi}"></p:calendar>
+				
+				<p:outputLabel value="Adres :"></p:outputLabel>
+				<p:inputText value="#{kisiBean.kisi.acikAdres}"></p:inputText>
+			
+				<p:commandButton value="iptal" onclick="PF('dlgKisi').hide()"></p:commandButton>
+				<p:commandButton value="Kaydet" actionListener="#{kisiBean.kaydet}" update=":frmKisi:tblKisi,:frmKisi:dlgKisi" oncomplete="PF('dlgKisi').hide()"></p:commandButton>
+			</p:panelGrid>
+		
+		</p:dialog>
+		
+	</h:form>
+</h:body>
+</html>
