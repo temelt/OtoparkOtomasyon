@@ -1,17 +1,20 @@
 package com.vektorel.oot.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.util.HRException;
 import com.vektorel.oot.util.HibernateUtil;
+import com.vektorel.oot.util.PagingResult;
 
 
 public class KisiService {
@@ -78,4 +81,40 @@ public class KisiService {
 	        criteria.add(Restrictions.eq("id", id));
 	        return (Kisi) criteria.uniqueResult();
 	    }
+
+		@SuppressWarnings("unchecked")
+		public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
+
+			Session session =HibernateUtil.getSessionFactory().openSession();
+			Criteria criteria =session.createCriteria(Kisi.class);
+			criteria.setProjection(Projections.rowCount());
+			Long kayitSayisi = (Long) criteria.uniqueResult();
+			
+			criteria.setProjection(null);
+			
+			criteria.addOrder(Order.asc("id"));
+			criteria.setFirstResult(first);
+			criteria.setMaxResults(pageSize);
+			List<Kisi> liste = criteria.list();
+			
+			PagingResult result=new PagingResult();
+			result.setList(liste);
+			result.setRowCount(kayitSayisi);
+			session.close();
+			return result;
+		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

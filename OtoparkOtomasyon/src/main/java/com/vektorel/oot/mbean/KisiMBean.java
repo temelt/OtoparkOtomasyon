@@ -2,6 +2,7 @@ package com.vektorel.oot.mbean;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -9,8 +10,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.service.KisiService;
+import com.vektorel.oot.util.PagingResult;
 
 @ManagedBean(name="kisiBean")
 @ViewScoped
@@ -26,8 +31,8 @@ public class KisiMBean implements Serializable{
 	 */
 	private transient KisiService kisiService;
 	
-	private List<Kisi> kisis;
 	private Kisi kisi;
+	private LazyDataModel<Kisi> lazy;
 
 	
 	/**
@@ -69,10 +74,24 @@ public class KisiMBean implements Serializable{
 	public void yeni() {
 		kisi=new Kisi();
 	}
+
 	
 	private void listele() {
-		kisis = kisiService.getAll(null);
-		mesajGoster("Kayýtlar Listelendi","Kayýt Sayýsý :"+kisis.size());
+		lazy =new LazyDataModel<Kisi>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 7133036500137030751L;
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<Kisi> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+				
+				PagingResult pagingResult = kisiService.getByPaging(first, pageSize, filters);
+				this.setRowCount(pagingResult.getRowCount().intValue());
+				return pagingResult.getList();
+			}
+		};
 	}
 	
 	public void mesajGoster(String baslik,String detay) {
@@ -83,16 +102,15 @@ public class KisiMBean implements Serializable{
 	/**
 	 * Getter/Setter 
 	 */
-	
-	public List<Kisi> getKisis() {
-		return kisis;
-	}
-	
 	public Kisi getKisi() {
 		return kisi;
 	}
 	
 	public void setKisi(Kisi kisi) {
 		this.kisi = kisi;
+	}
+	
+	public LazyDataModel<Kisi> getLazy() {
+		return lazy;
 	}
 }

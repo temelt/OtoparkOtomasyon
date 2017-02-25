@@ -13,11 +13,11 @@
 			<h:form id="frmKisi">
 				<p:growl id="growl" life="6000" autoUpdate="true" showDetail="true" />
 
-				<p:dataTable id="tblKisi" widgetVar="tblKisi" var="k"
-					value="#{kisiBean.kisis}" rows="10" paginator="true"
+				<p:dataTable id="tblKisi" widgetVar="tblKisi" var="k" lazy="true"
+					value="#{kisiBean.lazy}" rows="10" paginator="true"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="5,10,100">
-					<p:column headerText="Id">
+					<p:column headerText="Id" >
 						<h:outputText value="#{k.id}" />
 					</p:column>
 
