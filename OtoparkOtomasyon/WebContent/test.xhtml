@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/layout/layout.xhtml">
+		<ui:define name="content">
+			<h2>Hoşgeldiniz</h2>
+			<h:dataTable id="tblKisi"  var="k"
+					value="#{kisiBean.kisis}" >
+					<h:column headerText="Id">
+						<h:outputText value="#{k.id}" />
+					</h:column>
+
+					<h:column headerText="Ad">
+						<h:outputText value="#{k.ad}" />
+					</h:column>
+
+					<h:column headerText="Soyad">
+						<h:outputText value="#{k.soyad}" />
+					</h:column>
+
+					<h:column headerText="TC">
+						<h:outputText value="#{k.tc}" />
+					</h:column>
+
+					<h:column headerText="Baba Adı">
+						<h:outputText value="#{k.babaAdi}" />
+					</h:column>
+
+					<h:column headerText="Ana Adı">
+						<h:outputText value="#{k.anaAdi}" />
+					</h:column>
+
+					<h:column headerText="Adres">
+						<h:outputText value="#{k.acikAdres}" />
+					</h:column>
+
+					
+				</h:dataTable>
+		</ui:define>
+	</ui:composition>
+</ui:composition>

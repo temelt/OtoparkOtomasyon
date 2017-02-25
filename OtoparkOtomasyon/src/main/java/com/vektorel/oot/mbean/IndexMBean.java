@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+@SuppressWarnings("restriction")
 @ManagedBean(name="indexBean")
 @ViewScoped
 public class IndexMBean implements Serializable{
@@ -18,7 +19,7 @@ public class IndexMBean implements Serializable{
 	
 	@PostConstruct
 	private void init() {
-		System.out.println("Nesne Oluþtu");
+		System.out.println("IndexMBean Nesne Oluþtu");
 	}
 	
 	

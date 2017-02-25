@@ -12,7 +12,6 @@ import javax.faces.context.FacesContext;
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.service.KisiService;
 
-@SuppressWarnings("restriction")
 @ManagedBean(name="kisiBean")
 @ViewScoped
 public class KisiMBean implements Serializable{
@@ -25,7 +24,7 @@ public class KisiMBean implements Serializable{
 	/**
 	 * Properties
 	 */
-	private KisiService kisiService;
+	private transient KisiService kisiService;
 	
 	private List<Kisi> kisis;
 	private Kisi kisi;
