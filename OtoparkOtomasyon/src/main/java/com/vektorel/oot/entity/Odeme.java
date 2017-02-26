@@ -5,15 +5,18 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
- * @author emre
+ * @author eaytac
  *
  */
 
@@ -42,7 +45,7 @@ public class Odeme extends EBase{
 		this.aracGiris = aracGiris;
 	}
 
-	@Column(precision=16,scale=2)
+	@Column(name="fiyat" ,precision = 16, scale=2)
 	public BigDecimal getFiyat() {
 		return fiyat;
 	}
@@ -51,6 +54,7 @@ public class Odeme extends EBase{
 		this.fiyat = fiyat;
 	}
 
+	@Enumerated
 	public OdemeYonTip getOdemeYonTip() {
 		return odemeYonTip;
 	}
@@ -59,6 +63,7 @@ public class Odeme extends EBase{
 		this.odemeYonTip = odemeYonTip;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getTarih() {
 		return tarih;
 	}

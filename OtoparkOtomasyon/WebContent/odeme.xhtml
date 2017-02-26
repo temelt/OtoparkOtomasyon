@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/layout/layout.xhtml">
+		<ui:define name="content">
+		<h2>Ödeme İşlemleri</h2>
+		
+		<h:form id="frmOdeme">
+				<p:growl id="growl" life="6000" autoUpdate="true" showDetail="true" />
+
+				<p:dataTable id="tblOdeme" widgetVar="tblOdeme" var="o" lazy="true"
+					value="#{odemeBean.lazy}" rows="10" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,100">
+					<p:column headerText="Id" >
+						<h:outputText value="#{o.id}" />
+					</p:column>
+
+					<p:column headerText="Plaka">
+						<h:outputText value="#{o.aracGiris.arac.plaka}" />
+					</p:column>
+
+					<p:column headerText="Giriş Zamanı">
+						<h:outputText value="#{o.aracGiris.girisTarihi}" />
+					</p:column>
+
+					<p:column headerText="Çıkış Zamanı">
+						<h:outputText value="#{o.aracGiris.cikisTarihi}" />
+					</p:column>
+					
+					<p:column headerText="Bulunduğu Yer">
+						<h:outputText value="#{o.aracGiris.otoparkBolum}" />
+					</p:column>
+					
+					<p:column headerText="İşlemler">
+						<p:commandButton icon="ui-icon-pencil" update=":frmOdeme:dlgOdeme"
+							actionListener="#{odemeBean.seciliKayit(o.id)}"
+							oncomplete="PF('dlgOdeme').show()"></p:commandButton>
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{odemeBean.seciliyiSil(o.id)}"
+							update=":frmOdeme:dlgOdeme">
+							<p:confirm header="Silme Onay" message="Kayıt Silinsin mi?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Evet" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Hayır" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:column>
+				</p:dataTable>
+
+				<p:commandButton value="Yeni" actionListener="#{odemeBean.yeni}"
+					update=":frmOdeme:dlgOdeme" oncomplete="PF('dlgOdeme').show()"></p:commandButton>
+
+				<p:dialog id="dlgOdeme" widgetVar="dlgOdeme" 
+					resizable="false" header="Ödeme Kaydı" modal="true">
+
+<!-- Aşağıdaki kısımlar autocomplete, combobox ile yapılacak. -->
+<!-- Ya da araç bilgilerini ekleyip araç ile beraber bu bilgiler girilecek. -->
+<!-- Sadece fiyat kısmı textbox olarak alınacak. -->
+<!-- personel eklenecek. -->
+
+					<p:panelGrid columns="2">
+<!-- 						<p:outputLabel value="Plaka:"></p:outputLabel> -->
+<!-- 						<p:inputText value="#{odemeBean.odeme.aracGiris.arac.plaka}"></p:inputText> -->
+
+<!-- 						<p:outputLabel value="Giriş Zamanı:"></p:outputLabel> -->
+<!-- 						<p:calendar value="#{odemeBean.odeme.aracGiris.girisTarihi}" pattern="MM/dd/yyyy HH:mm:ss"></p:calendar> -->
+
+<!-- 						<p:outputLabel value="Çıkış Zamanı:"></p:outputLabel> -->
+<!-- 						<p:calendar value="#{odemeBean.odeme.aracGiris.cikisTarihi}" pattern="MM/dd/yyyy HH:mm:ss"></p:calendar> -->
+
+<!-- 						<p:outputLabel value="Bulunduğu Yer:"></p:outputLabel> -->
+<!-- 						<p:inputText value="#{odemeBean.odeme.aracGiris.otoparkBolum}"></p:inputText> -->
+
+						<p:commandButton value="iptal" onclick="PF('dlgOdeme').hide()"></p:commandButton>
+						<p:commandButton value="Kaydet"
+							actionListener="#{odemeBean.kaydet}"
+							update=":frmOdeme:tblOdeme,:frmOdeme:dlgOdeme"
+							oncomplete="PF('dlgOdeme').hide()"></p:commandButton>
+					</p:panelGrid>
+
+				</p:dialog>
+
+				<p:ajaxStatus onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()" />
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+				    Yükleniyor...
+				</p:dialog>
+			</h:form>
+		
+		</ui:define>
+	</ui:composition>
+</ui:composition>
