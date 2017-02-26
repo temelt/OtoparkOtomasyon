@@ -4,8 +4,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
+ * 
+ * @author temelt
  *
- * @author vektorel
  */
 @SuppressWarnings("deprecation")
 public class HibernateUtil {

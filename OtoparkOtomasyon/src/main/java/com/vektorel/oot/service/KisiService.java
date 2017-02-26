@@ -3,118 +3,73 @@ package com.vektorel.oot.service;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 
 import com.vektorel.oot.entity.Kisi;
+import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.HRException;
-import com.vektorel.oot.util.HibernateUtil;
 import com.vektorel.oot.util.PagingResult;
 
-
+/**
+ * 
+ * @author temelt
+ * 
+ */
+@ManagedBean(name = "kisiService")
+@ApplicationScoped
 public class KisiService {
-	
-	    public boolean save(Kisi entity) throws Exception {
-	        if(entity.getAd()==null || entity.getAd().trim().equals("")){
-	            throw  new HRException("Kullanýcý Adý Boþ Olmamalýdýr");
-	        }
-	        if(entity.getSoyad()==null || entity.getSoyad().trim().equals("")){
-	            throw  new HRException("Kullanýcý Þifre Boþ Olmamalýdýr");
-	        }
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();
-	        session.save(entity);
-	        trans.commit();
-	        session.close();
-	        return true;
-	    }
 
-	    public boolean update(Kisi entity) {
-	        
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();
-	        session.update(entity);
-	        trans.commit();
-	        session.close();
-	        return true;
-	    }
+	@ManagedProperty(value = "#{baseDao}")
+	private BaseDao baseDao;
 
-	    public boolean delete(Kisi entity) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();
-	        session.delete(entity);
-	        trans.commit();
-	        session.close();
-	        return true;
-	    }
-	    
-	    public boolean delete(Long entityId) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();
-	        Kisi kisi = getById(entityId);
-	        session.delete(kisi);
-	        trans.commit();
-	        session.close();
-	        return true;
-	    }
-
-	    @SuppressWarnings("unchecked")
-		public List<Kisi> getAll(String query) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Criteria criteria = session.createCriteria(Kisi.class);
-	        if(query!=null){
-	            criteria.add(Restrictions.or(Restrictions.ilike("username", query,MatchMode.ANYWHERE),
-	                    Restrictions.ilike("adSoyad", query,MatchMode.ANYWHERE)));
-	        }
-	        criteria.addOrder(Order.asc("id"));
-	        return criteria.list();
-	    }
-
-	    public Kisi getById(Long id) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Criteria criteria = session.createCriteria(Kisi.class);
-	        criteria.add(Restrictions.eq("id", id));
-	        return (Kisi) criteria.uniqueResult();
-	    }
-
-		@SuppressWarnings("unchecked")
-		public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
-
-			Session session =HibernateUtil.getSessionFactory().openSession();
-			Criteria criteria =session.createCriteria(Kisi.class);
-			criteria.setProjection(Projections.rowCount());
-			Long kayitSayisi = (Long) criteria.uniqueResult();
-			
-			criteria.setProjection(null);
-			
-			criteria.addOrder(Order.asc("id"));
-			criteria.setFirstResult(first);
-			criteria.setMaxResults(pageSize);
-			List<Kisi> liste = criteria.list();
-			
-			PagingResult result=new PagingResult();
-			result.setList(liste);
-			result.setRowCount(kayitSayisi);
-			session.close();
-			return result;
+	public boolean save(Kisi entity) throws Exception {
+		if (entity.getAd() == null || entity.getAd().trim().equals("")) {
+			throw new HRException("Kullanýcý Adý Boþ Olmamalýdýr");
 		}
+		if (entity.getSoyad() == null || entity.getSoyad().trim().equals("")) {
+			throw new HRException("Kullanýcý Þifre Boþ Olmamalýdýr");
+		}
+		baseDao.save(entity);
+		return true;
 	}
 
+	public boolean update(Kisi entity) throws Exception {
+		if (entity.getAd() == null || entity.getAd().trim().equals("")) {
+			throw new HRException("Kullanýcý Adý Boþ Olmamalýdýr");
+		}
+		if (entity.getSoyad() == null || entity.getSoyad().trim().equals("")) {
+			throw new HRException("Kullanýcý Þifre Boþ Olmamalýdýr");
+		}
+		baseDao.update(entity);
+		return true;
+	}
 
+	public boolean delete(Kisi entity) {
+		baseDao.delete(entity);
+		return true;
+	}
 
+	public boolean delete(Long entityId) {
+		baseDao.delete(entityId, Kisi.class);
+		return true;
+	}
 
+	@SuppressWarnings("unchecked")
+	public List<Kisi> getAll(String query) {
+		return baseDao.getAll(Kisi.class);
+	}
 
+	public Kisi getById(Long id) {
+		return (Kisi) baseDao.getById(id, Kisi.class);
+	}
 
-
-
-
-
-
-
-
-
+	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
+		return baseDao.getByPaging(Kisi.class, first, pageSize, filters);
+	}
+	
+	public void setBaseDao(BaseDao baseDao) {
+		this.baseDao = baseDao;
+	}
+}

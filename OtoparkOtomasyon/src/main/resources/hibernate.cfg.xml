@@ -16,5 +16,16 @@
     <mapping class="com.vektorel.oot.entity.Ilce"></mapping>
     <mapping class="com.vektorel.oot.entity.Kisi"></mapping>
     <mapping class="com.vektorel.oot.entity.EBase"></mapping>
+    <mapping class="com.vektorel.oot.entity.Arac"></mapping>
+    <mapping class="com.vektorel.oot.entity.AracGiris"></mapping>
+    <mapping class="com.vektorel.oot.entity.MarkaModel"></mapping>
+    <mapping class="com.vektorel.oot.entity.Odeme"></mapping>
+    <mapping class="com.vektorel.oot.entity.OdemeYonTip"></mapping>
+    <mapping class="com.vektorel.oot.entity.Otopark"></mapping>
+    <mapping class="com.vektorel.oot.entity.OtoparkBolum"></mapping>
+    <mapping class="com.vektorel.oot.entity.OtoparkUyelik"></mapping>
+    <mapping class="com.vektorel.oot.entity.Personel"></mapping>
+    <mapping class="com.vektorel.oot.entity.Renk"></mapping>
+    <mapping class="com.vektorel.oot.entity.Kullanici"></mapping>
   </session-factory>
 </hibernate-configuration>

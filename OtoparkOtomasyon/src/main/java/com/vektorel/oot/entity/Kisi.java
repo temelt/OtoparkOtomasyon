@@ -14,8 +14,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
+ * 
+ * @author temelt
  *
- * @author vektorel
  */
 @Entity
 @Table(name = "gnl_kisi")

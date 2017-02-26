@@ -9,8 +9,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
+ * 
+ * @author temelt
  *
- * @author vektorel
  */
 @Entity
 @Table(name = "gnl_ilce")

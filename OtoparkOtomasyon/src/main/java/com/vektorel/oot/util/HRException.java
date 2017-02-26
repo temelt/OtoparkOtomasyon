@@ -1,5 +1,10 @@
 package com.vektorel.oot.util;
 
+/**
+ * 
+ * @author temelt
+ *
+ */
 public class HRException extends Exception {
 
 	/**

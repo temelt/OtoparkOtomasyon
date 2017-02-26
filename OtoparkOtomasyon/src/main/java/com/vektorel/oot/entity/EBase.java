@@ -10,8 +10,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * 
+ * @author temelt
  *
- * @author vektorel
  */
 @MappedSuperclass
 public abstract class EBase implements  Serializable{

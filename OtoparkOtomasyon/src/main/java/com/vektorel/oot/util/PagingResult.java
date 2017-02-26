@@ -2,8 +2,14 @@ package com.vektorel.oot.util;
 
 import java.util.List;
 
+/**
+ * 
+ * @author temelt
+ *
+ */
 @SuppressWarnings("rawtypes")
 public class PagingResult {
+
 	private List list;
 	private Long rowCount;
 

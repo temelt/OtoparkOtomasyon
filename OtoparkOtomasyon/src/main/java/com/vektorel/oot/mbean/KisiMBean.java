@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -17,6 +16,11 @@ import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.service.KisiService;
 import com.vektorel.oot.util.PagingResult;
 
+/**
+ * 
+ * @author temelt
+ *
+ */
 @ManagedBean(name="kisiBean")
 @ViewScoped
 public class KisiMBean implements Serializable{
@@ -29,7 +33,11 @@ public class KisiMBean implements Serializable{
 	/**
 	 * Properties
 	 */
+	@ManagedProperty(value="#{kisiService}")
 	private transient KisiService kisiService;
+	
+	@ManagedProperty(value="#{messageBean}")
+	private MessageMBean messageMBean;
 	
 	private Kisi kisi;
 	private LazyDataModel<Kisi> lazy;
@@ -40,7 +48,6 @@ public class KisiMBean implements Serializable{
 	 */
 	@PostConstruct
 	public void init() {
-		kisiService = new KisiService();
 		yeni();
 		listele();
 	}
@@ -49,10 +56,10 @@ public class KisiMBean implements Serializable{
 		try {
 			if(kisi.getId()==null){
 				kisiService.save(kisi);
-				mesajGoster("Kayýt", "Kayýt Eklendi");
+				messageMBean.mesajKayitBasarili();
 			}else{
 				kisiService.update(kisi);
-				mesajGoster("Kayýt", "Kayýt Güncellendi");
+				messageMBean.mesajGuncellemeBasarili();
 			}
 			yeni();
 			listele();
@@ -67,7 +74,7 @@ public class KisiMBean implements Serializable{
 	
 	public void seciliyiSil(Long id) {
 		kisiService.delete(id);
-		mesajGoster("Kayýt Silindi", "Kayýt No :"+ id);
+		messageMBean.mesajSilmeBasarili();
 		listele();
 	}
 	
@@ -94,10 +101,7 @@ public class KisiMBean implements Serializable{
 		};
 	}
 	
-	public void mesajGoster(String baslik,String detay) {
-	        FacesContext context = FacesContext.getCurrentInstance();
-	        context.addMessage(null, new FacesMessage(baslik,  detay) );
-	}
+
 	
 	/**
 	 * Getter/Setter 
@@ -112,5 +116,13 @@ public class KisiMBean implements Serializable{
 	
 	public LazyDataModel<Kisi> getLazy() {
 		return lazy;
+	}
+	
+	public void setKisiService(KisiService kisiService) {
+		this.kisiService = kisiService;
+	}
+	
+	public void setMessageMBean(MessageMBean messageMBean) {
+		this.messageMBean = messageMBean;
 	}
 }
