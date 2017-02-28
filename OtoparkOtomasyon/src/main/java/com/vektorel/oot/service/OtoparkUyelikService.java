@@ -36,12 +36,12 @@ public class OtoparkUyelikService {
 	}
 
 	public boolean update(OtoparkUyelik entity) throws Exception {
-		if (entity.getArac() == null) {
-			throw new HRException("Lütfen Aracý giriniz");
-		}
-		if (entity.getKisi() == null) {
-			throw new HRException("Lütfen Kisi bilgilerini giriniz");
-		}
+//		if (entity.getArac() == null) {
+//			throw new HRException("Lütfen Aracý giriniz");
+//		}
+//		if (entity.getKisi() == null) {
+//			throw new HRException("Lütfen Kisi bilgilerini giriniz");
+//		}
 		baseDao.save(entity);
 		return true;
 	}
