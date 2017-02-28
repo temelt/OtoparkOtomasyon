@@ -37,6 +37,14 @@
 					<p:column headerText="Bulunduğu Yer">
 						<h:outputText value="#{o.aracGiris.otoparkBolum}" />
 					</p:column>
+
+					<p:column headerText="Fiyat">
+						<h:outputText value="#{o.fiyat}" />
+					</p:column>
+					
+					<p:column headerText="İşlem Yapan Personel">
+						<h:outputText value="#{o.islemYapanPersonel.kisi.adSoyad}" />
+					</p:column>
 					
 					<p:column headerText="İşlemler">
 						<p:commandButton icon="ui-icon-pencil" update=":frmOdeme:dlgOdeme"
@@ -44,7 +52,7 @@
 							oncomplete="PF('dlgOdeme').show()"></p:commandButton>
 						<p:commandButton icon="ui-icon-trash"
 							actionListener="#{odemeBean.seciliyiSil(o.id)}"
-							update=":frmOdeme:dlgOdeme">
+							update=":frmOdeme:tblOdeme">
 							<p:confirm header="Silme Onay" message="Kayıt Silinsin mi?"
 								icon="ui-icon-alert" />
 						</p:commandButton>
@@ -66,7 +74,6 @@
 <!-- Aşağıdaki kısımlar autocomplete, combobox ile yapılacak. -->
 <!-- Ya da araç bilgilerini ekleyip araç ile beraber bu bilgiler girilecek. -->
 <!-- Sadece fiyat kısmı textbox olarak alınacak. -->
-<!-- personel eklenecek. -->
 
 					<p:panelGrid columns="2">
 <!-- 						<p:outputLabel value="Plaka:"></p:outputLabel> -->
@@ -79,6 +86,12 @@
 <!-- 						<p:calendar value="#{odemeBean.odeme.aracGiris.cikisTarihi}" pattern="MM/dd/yyyy HH:mm:ss"></p:calendar> -->
 
 <!-- 						<p:outputLabel value="Bulunduğu Yer:"></p:outputLabel> -->
+<!-- 						<p:inputText value="#{odemeBean.odeme.aracGiris.otoparkBolum}"></p:inputText> -->
+
+						<p:outputLabel value="Fiyat:"></p:outputLabel>
+						<p:inputText value="#{odemeBean.odeme.fiyat}"></p:inputText>
+
+<!-- 						<p:outputLabel value="İşlem Yapan Personel:"></p:outputLabel> -->
 <!-- 						<p:inputText value="#{odemeBean.odeme.aracGiris.otoparkBolum}"></p:inputText> -->
 
 						<p:commandButton value="iptal" onclick="PF('dlgOdeme').hide()"></p:commandButton>

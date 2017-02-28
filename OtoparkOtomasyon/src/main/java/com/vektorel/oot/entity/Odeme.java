@@ -45,7 +45,7 @@ public class Odeme extends EBase{
 		this.aracGiris = aracGiris;
 	}
 
-	@Column(name="fiyat" ,precision = 16, scale=2)
+	@Column(name="fiyat", precision = 16, scale=2)
 	public BigDecimal getFiyat() {
 		return fiyat;
 	}
