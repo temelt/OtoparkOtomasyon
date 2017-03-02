@@ -7,7 +7,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
-import com.vektorel.oot.entity.MarkaModel;
+import com.vektorel.oot.entity.OtoparkBolum;
 import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.HRException;
 import com.vektorel.oot.util.PagingResult;
@@ -18,14 +18,14 @@ import com.vektorel.oot.util.PagingResult;
  * 
  */
 
-@ManagedBean(name = "markaModelService")
+@ManagedBean(name = "otoparkBolumService")
 @ApplicationScoped
-public class MarkaModelService {
+public class OtoparkBolumService {
 
 	@ManagedProperty(value = "#{baseDao}")
-	private BaseDao baseDao;
+	BaseDao baseDao;
 
-	public boolean save(MarkaModel entity) throws Exception {
+	public boolean save(OtoparkBolum entity) throws Exception {
 
 		if (entity.getTanim() == null || entity.getTanim().trim().equals("")) {
 			throw new HRException("Taným Boþ Olmamalýdýr");
@@ -37,7 +37,7 @@ public class MarkaModelService {
 
 	}
 
-	public boolean update(MarkaModel entity) throws Exception {
+	public boolean update(OtoparkBolum entity) throws Exception {
 
 		if (entity.getTanim() == null || entity.getTanim().trim().equals("")) {
 			throw new HRException("Taným Boþ Olmamalýdýr");
@@ -47,7 +47,7 @@ public class MarkaModelService {
 
 	}
 
-	public boolean delete(MarkaModel entity) throws Exception {
+	public boolean delete(OtoparkBolum entity) throws Exception {
 
 		baseDao.delete(entity);
 		return true;
@@ -56,42 +56,31 @@ public class MarkaModelService {
 
 	public boolean delete(Long entityId) throws Exception {
 
-		baseDao.delete(entityId, MarkaModel.class);
+		baseDao.delete(entityId, OtoparkBolum.class);
 		return true;
 
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	public List<MarkaModel> getAll(String query) {
+	public List<OtoparkBolum> getAll(String query) {
 
-		return baseDao.getAll(MarkaModel.class);
+		return baseDao.getAll(OtoparkBolum.class);
 
-	}
-
-	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
-		return baseDao.getByPaging(MarkaModel.class, first, pageSize, filters);
-	}
-
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
-
-	public MarkaModel getById(Long id) {
-		return (MarkaModel) baseDao.getById(id, MarkaModel.class);
 	}
 	
-	public MarkaModel getMarkaId(String marka) {
-		return (MarkaModel) baseDao.getMarkaAd(marka, MarkaModel.class);
+	public OtoparkBolum getById(Long id) {
+		return (OtoparkBolum) baseDao.getById(id, OtoparkBolum.class);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<MarkaModel> getMarkaList(MarkaModel marka){
+	public List<OtoparkBolum> getMarkaList(OtoparkBolum otoparkBolum){
 		
-		return baseDao.getMarka(MarkaModel.class); 
+		return baseDao.getMarka(OtoparkBolum.class); 
 	}
 	
+	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
+		return baseDao.getByPaging(OtoparkBolum.class, first, pageSize, filters);
+	}
 	
-	
-
 
 }

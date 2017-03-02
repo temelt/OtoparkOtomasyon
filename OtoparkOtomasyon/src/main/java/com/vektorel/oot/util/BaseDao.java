@@ -90,5 +90,29 @@ public class BaseDao {
 		session.close();
 		return result;
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public List getMarka(Class cls) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Criteria criteria = session.createCriteria(cls);
+		criteria.add(Restrictions.isNull("markaModel"));
+		return criteria.list();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List getModel(Class cls) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Criteria criteria = session.createCriteria(cls);
+		criteria.add(Restrictions.isNotNull("markaModel"));
+		return criteria.list();
+	}
+	
+	@SuppressWarnings({ "rawtypes" })
+	public Object getMarkaAd(String tanim,Class cls) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Criteria criteria = session.createCriteria(cls);
+		criteria.add(Restrictions.eq("tanim", tanim));
+		return criteria.uniqueResult();
+	}
 
 }

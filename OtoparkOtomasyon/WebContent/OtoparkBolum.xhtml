@@ -7,50 +7,50 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ui:composition template="/layout/layout.xhtml">
 		<ui:define name="content">
-			<h2>Araç Marka Model</h2>
-			<h:form id="frmMarkaModel">
+			<h2>Otopark Listesi</h2>
+			<h:form id="frmOtoparkListesi">
 				<p:growl id="growl" life="6000" autoUpdate="true" showDetail="true" />
 
-				<p:dataTable id="tblMarkaModel" widgetVar="tblMarkaModel" var="markamodel" lazy="true"
-					value="#{markaModelBean.lazy}" rows="10" paginator="true"
+				<p:dataTable id="tblOtoparkListesi" widgetVar="tblOtoparkListesi" var="otoparkListe" lazy="true"
+					value="#{otoparkBolumBean.lazy}" rows="10" paginator="true"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="5,10,100">
 				
-					<p:column headerText="MarkaModel">
-						<h:outputText  value="#{markamodel.tanim}" />
+					<p:column headerText="Otopark Adı">
+						<h:outputText  value="#{otoparkListe.tanim}" />
 					</p:column>
 				
 				</p:dataTable>
 
 				<p:commandButton value="Yeni"
-					actionListener="#{markaModelBean.yeni}"
-					update=":frmMarkaModel:dlgMarkaModel"
-					oncomplete="PF('dlgMarkaModel').show()"></p:commandButton>
+					actionListener="#{otoparkBolumBean.yeni}"
+					update=":frmOtoparkListesi:dlgOtoparkListesi"
+					oncomplete="PF('dlgOtoparkListesi').show()"></p:commandButton>
 
-				<p:dialog id="dlgMarkaModel" widgetVar="dlgMarkaModel" width="350"
-					resizable="false" header="Marka Model Kaydı" modal="true">
+				<p:dialog id="dlgOtoparkListesi" widgetVar="dlgOtoparkListesi" width="350"
+					resizable="false" header="Otopark Kaydı" modal="true">
 					<p:panelGrid columns="2" width="450">
-						<p:outputLabel value="Model"></p:outputLabel>
-						<p:inputText value="#{markaModelBean.markaModel.tanim}"></p:inputText>
+						<p:outputLabel value="Kod"></p:outputLabel>
+						<p:inputText value="#{otoparkBolumBean.otoparkBolum.kod}"></p:inputText>
 
-						<p:outputLabel value="Açıklama :"></p:outputLabel>
-						<p:inputText value="#{markaModelBean.markaModel.aciklama}"></p:inputText>
+						<p:outputLabel value="Tanım"></p:outputLabel>
+						<p:inputText value="#{otoparkBolumBean.otoparkBolum.tanim}"></p:inputText>
 
 						<p:outputLabel value="Marka :"></p:outputLabel>
-						<p:selectOneMenu id="markalar" value="#{markaModelBean.deger}"
+						<p:selectOneMenu id="markalar" value="#{otoparkBolumBean.deger}"
 							style="width:220px">
 							<f:selectItem itemLabel="Seçiniz" itemValue=""
 								noSelectionOption="true" />
-							<f:selectItems value="#{markaModelBean.liste}" />
+							<f:selectItems value="#{otoparkBolumBean.liste}" />
 							<f:converter converterId="converter" />
 						</p:selectOneMenu>
 
 						<p:commandButton value="iptal"
 							onclick="PF('dlgMarkaModel').hide()"></p:commandButton>
 						<p:commandButton value="Kaydet"
-							actionListener="#{markaModelBean.kaydet}"
-							update="frmMarkaModel:dlgMarkaModel"
-							oncomplete="PF('dlgMarkaModel').hide()"></p:commandButton>
+							actionListener="#{otoparkBolumBean.kaydet}"
+							update="frmOtoparkListesi:dlgOtoparkListesi"
+							oncomplete="PF('dlgOtoparkListesi').hide()"></p:commandButton>
 					</p:panelGrid>
 				</p:dialog>
 			</h:form>

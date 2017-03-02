@@ -1,6 +1,7 @@
 package com.vektorel.oot.mbean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +12,8 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.TreeNode;
 
-import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.MarkaModel;
 import com.vektorel.oot.service.MarkaModelService;
 import com.vektorel.oot.util.PagingResult;
@@ -33,20 +34,33 @@ public class MarkaModelMBean implements Serializable {
 	private MessageMBean messageMBean;
 
 	private MarkaModel markaModel;
-	private LazyDataModel<Kisi> lazy;
+	private LazyDataModel<MarkaModel> lazy;
+	private List <String> liste = new ArrayList<>();
+	private List<MarkaModel> markaListe;
+	private String deger;
+	
+	private TreeNode root;
 
 	@PostConstruct
 	private void init() {
 		yeni();
 		listele();
+		markaComboDoldur();
+		markaListe = markaModelService.getMarkaList(markaModel);
+		System.out.println("---");
 	}
 
 	public void kaydet() {
+
+		MarkaModel marka = markaModelService.getMarkaId(deger);
+
 		try {
 			if (markaModel.getId() == null) {
+				markaModel.setMarkaModel(marka);
 				markaModelService.save(markaModel);
 				messageMBean.mesajKayitBasarili();
 			} else {
+				markaModel.setMarkaModel(marka);
 				markaModelService.update(markaModel);
 				messageMBean.mesajGuncellemeBasarili();
 			}
@@ -77,7 +91,7 @@ public class MarkaModelMBean implements Serializable {
 	}
 
 	private void listele() {
-		lazy = new LazyDataModel<Kisi>() {
+		lazy = new LazyDataModel<MarkaModel>() {
 			/**
 			 * 
 			 */
@@ -85,15 +99,23 @@ public class MarkaModelMBean implements Serializable {
 
 			@SuppressWarnings("unchecked")
 			@Override
-			public List<Kisi> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, Object> filters) {
+			public List<MarkaModel> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+					Map<String, Object> filters) {
 
-				PagingResult pagingResult = markaModelService.getByPaging(
-						first, pageSize, filters);
+				PagingResult pagingResult = markaModelService.getByPaging(first, pageSize, filters);
 				this.setRowCount(pagingResult.getRowCount().intValue());
 				return pagingResult.getList();
 			}
 		};
+	}
+
+	private void markaComboDoldur() {
+
+		List<MarkaModel> markaListe = markaModelService.getMarkaList(markaModel);
+		for (MarkaModel markaModel : markaListe) {
+			 liste.add(markaModel.getTanim());
+
+		}
 	}
 
 	public MarkaModelService getMarkaModelService() {
@@ -120,12 +142,43 @@ public class MarkaModelMBean implements Serializable {
 		this.markaModel = markaModel;
 	}
 
-	public LazyDataModel<Kisi> getLazy() {
+	public LazyDataModel<MarkaModel> getLazy() {
 		return lazy;
 	}
 
-	public void setLazy(LazyDataModel<Kisi> lazy) {
+	public void setLazy(LazyDataModel<MarkaModel> lazy) {
 		this.lazy = lazy;
+	}
+
+//	public Map<String, String> getListe() {
+//		return liste;
+//	}
+
+	 public void setListe(List<String> liste) {
+	 this.liste = liste;
+	 }
+
+	 public List<String> getListe() {
+		return liste;
+	}
+	 
+	public List<MarkaModel> getMarkaListe() {
+		return markaListe;
+	}
+
+	public void setDeger(String deger) {
+		this.deger = deger;
+	}
+
+	public String getDeger() {
+		return deger;
+	}
+	
+	public TreeNode getRoot() {
+		return root;
+	}
+	public void setRoot(TreeNode root) {
+		this.root = root;
 	}
 
 }
