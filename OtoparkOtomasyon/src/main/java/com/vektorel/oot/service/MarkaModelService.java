@@ -90,7 +90,11 @@ public class MarkaModelService {
 		return baseDao.getMarka(MarkaModel.class); 
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	public List<MarkaModel> getModel(Long id){
+		
+		return baseDao.getModel(id, MarkaModel.class); 
+	}
 	
 
 

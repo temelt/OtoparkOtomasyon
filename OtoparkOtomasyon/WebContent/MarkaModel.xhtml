@@ -11,16 +11,23 @@
 			<h:form id="frmMarkaModel">
 				<p:growl id="growl" life="6000" autoUpdate="true" showDetail="true" />
 
-				<p:dataTable id="tblMarkaModel" widgetVar="tblMarkaModel" var="markamodel" lazy="true"
-					value="#{markaModelBean.lazy}" rows="10" paginator="true"
+				<p:dataTable id="tblMarkaModel" widgetVar="tblMarkaModel"
+					var="markamodel" lazy="true" value="#{markaModelBean.lazy}"
+					rows="10" paginator="true"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="5,10,100">
-				
+
 					<p:column headerText="MarkaModel">
-						<h:outputText  value="#{markamodel.tanim}" />
+						<h:outputText value="#{markamodel.tanim}" />
 					</p:column>
-				
+
 				</p:dataTable>
+
+				<p:tree value="#{markaModelBean.root}" var="node">
+					<p:treeNode>
+						<h:outputText value="#{node}" />
+					</p:treeNode>
+				</p:tree>
 
 				<p:commandButton value="Yeni"
 					actionListener="#{markaModelBean.yeni}"

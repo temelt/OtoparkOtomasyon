@@ -100,10 +100,10 @@ public class BaseDao {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public List getModel(Class cls) {
+	public List getModel(Long markaModel, Class cls) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Criteria criteria = session.createCriteria(cls);
-		criteria.add(Restrictions.isNotNull("markaModel"));
+		criteria.add(Restrictions.eq("markaModel", markaModel));
 		return criteria.list();
 	}
 	

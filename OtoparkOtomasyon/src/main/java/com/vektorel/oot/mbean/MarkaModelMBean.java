@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.primefaces.model.TreeNode;
@@ -38,6 +39,8 @@ public class MarkaModelMBean implements Serializable {
 	private List <String> liste = new ArrayList<>();
 	private List<MarkaModel> markaListe;
 	private String deger;
+	private TreeNode child;
+	private TreeNode descendent;
 	
 	private TreeNode root;
 
@@ -45,9 +48,42 @@ public class MarkaModelMBean implements Serializable {
 	private void init() {
 		yeni();
 		listele();
+		tree();
 		markaComboDoldur();
 		markaListe = markaModelService.getMarkaList(markaModel);
 		System.out.println("---");
+	}
+	
+	public void tree() {
+		// This is the root node, so it's data is root and its parent is null
+		this.root = new DefaultTreeNode("Root Node", null);
+		// Create child node
+
+		List<MarkaModel> markaList = markaModelService.getMarkaList(markaModel);
+		// List<MarkaModel> modelList = markaModelService.getModel(markaModel);
+
+		for (MarkaModel marka : markaList) {
+			child = new DefaultTreeNode(marka.getTanim(), this.root);
+			child.setParent(this.root);
+			List<MarkaModel> modelList = markaModelService.getModel(marka.getId());
+			for (MarkaModel model : modelList) {
+				descendent = new DefaultTreeNode(model.getTanim(), child);
+				descendent.setParent(child);
+			}
+
+		}
+
+		// Reference the parent of child node
+		//child.setParent(this.root);
+
+		// Create descendent nodes
+
+		// for (MarkaModel model : modelList) {
+		// descendent = new DefaultTreeNode(model.getTanim(), child);
+		// }
+		//
+		// Reference the parent of descendent node
+		//descendent.setParent(child);
 	}
 
 	public void kaydet() {
