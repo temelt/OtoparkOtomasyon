@@ -103,7 +103,7 @@ public class Kisi extends EBase{
     }
 
     @JoinColumn(name = "il_id")
-    @ManyToOne(optional = true,fetch = FetchType.LAZY)
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
     public Il getIl() {
         return il;
     }
@@ -113,7 +113,7 @@ public class Kisi extends EBase{
     }
 
     @JoinColumn(name = "ilce_id")
-    @ManyToOne(optional = true,fetch = FetchType.LAZY)
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
     public Ilce getIlce() {
         return ilce;
     }

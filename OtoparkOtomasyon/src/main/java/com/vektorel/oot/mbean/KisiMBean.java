@@ -39,6 +39,9 @@ public class KisiMBean implements Serializable{
 	@ManagedProperty(value="#{messageBean}")
 	private MessageMBean messageMBean;
 	
+	@ManagedProperty(value="#{yerlesimMBean}")
+	private YerlesimMBean yerlesimMBean;
+	
 	private Kisi kisi;
 	private LazyDataModel<Kisi> lazy;
 
@@ -82,6 +85,9 @@ public class KisiMBean implements Serializable{
 		kisi=new Kisi();
 	}
 
+	public void ilChange() {
+		yerlesimMBean.ilChange(this.kisi.getIl().getId());
+	}
 	
 	private void listele() {
 		lazy =new LazyDataModel<Kisi>() {
@@ -124,5 +130,8 @@ public class KisiMBean implements Serializable{
 	
 	public void setMessageMBean(MessageMBean messageMBean) {
 		this.messageMBean = messageMBean;
+	}
+	public void setYerlesimMBean(YerlesimMBean yerlesimMBean) {
+		this.yerlesimMBean = yerlesimMBean;
 	}
 }

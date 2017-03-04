@@ -103,7 +103,7 @@ public class BaseDao {
 	public List getModel(Long markaModel, Class cls) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Criteria criteria = session.createCriteria(cls);
-		criteria.add(Restrictions.eq("markaModel", markaModel));
+		criteria.add(Restrictions.eq("markaModel.id", markaModel));
 		return criteria.list();
 	}
 	
@@ -113,6 +113,11 @@ public class BaseDao {
 		Criteria criteria = session.createCriteria(cls);
 		criteria.add(Restrictions.eq("tanim", tanim));
 		return criteria.uniqueResult();
+	}
+	
+	@SuppressWarnings("unused")
+	public Session getOpenSession() {
+		return HibernateUtil.getSessionFactory().openSession();
 	}
 
 }

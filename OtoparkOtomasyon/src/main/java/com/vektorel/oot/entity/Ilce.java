@@ -67,4 +67,14 @@ public class Ilce extends EBase {
         this.il = il;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Ilce){
+    		if(((Ilce) obj).getId().equals(this.getId())){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
 }

@@ -40,6 +40,14 @@
 					<p:column headerText="Ana Adı">
 						<h:outputText value="#{k.anaAdi}" />
 					</p:column>
+					
+					<p:column headerText="İl">
+						<h:outputText value="#{k.il.ad}" />
+					</p:column>
+					
+					<p:column headerText="İlçe">
+						<h:outputText value="#{k.ilce.ad}" />
+					</p:column>
 
 					<p:column headerText="Adres">
 						<h:outputText value="#{k.acikAdres}" />
@@ -86,6 +94,17 @@
 						<p:outputLabel value="Doğum Tarihi :"></p:outputLabel>
 						<p:calendar locale="tr" value="#{kisiBean.kisi.dogumTarihi}"></p:calendar>
 
+						<p:outputLabel value="İl :"></p:outputLabel>
+						<p:selectOneMenu value="#{kisiBean.kisi.il}" style="width:130px" converter="ilConverter">
+							<f:selectItems var="il" itemLabel="#{il.ad}" itemValue="#{il}" value="#{yerlesimMBean.ilListesi}"></f:selectItems>
+							<p:ajax listener="#{kisiBean.ilChange}"  update="ilce" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="İlçe :"></p:outputLabel>
+						<p:selectOneMenu widgetVar="ilce" id="ilce" value="#{kisiBean.kisi.ilce}" style="width:130px" converter="ilceConverter">
+							<f:selectItems var="ilce" itemLabel="#{ilce.ad}" itemValue="#{ilce}" value="#{yerlesimMBean.ilceListesi}"></f:selectItems>
+						</p:selectOneMenu>
+						
 						<p:outputLabel value="Adres :"></p:outputLabel>
 						<p:inputText value="#{kisiBean.kisi.acikAdres}"></p:inputText>
 

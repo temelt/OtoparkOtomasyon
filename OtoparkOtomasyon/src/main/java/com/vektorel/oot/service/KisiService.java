@@ -22,7 +22,7 @@ import com.vektorel.oot.util.PagingResult;
 public class KisiService {
 
 	@ManagedProperty(value = "#{baseDao}")
-	private BaseDao baseDao;
+	private transient BaseDao baseDao;
 
 	public boolean save(Kisi entity) throws Exception {
 		if (entity.getAd() == null || entity.getAd().trim().equals("")) {
