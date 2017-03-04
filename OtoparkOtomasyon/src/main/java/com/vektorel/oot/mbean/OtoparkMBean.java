@@ -12,7 +12,9 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
+import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.Otopark;
+import com.vektorel.oot.service.KisiService;
 import com.vektorel.oot.service.OtoparkService;
 import com.vektorel.oot.util.PagingResult;
 
@@ -38,6 +40,9 @@ public class OtoparkMBean implements Serializable{
 	
 	@ManagedProperty(value="#{messageBean}")
 	private MessageMBean messageMBean;
+	
+	@ManagedProperty(value="#{kisiService}")
+	private transient KisiService kisiService;
 	
 	private Otopark otopark;
 	private LazyDataModel<Otopark> lazy;
@@ -82,6 +87,9 @@ public class OtoparkMBean implements Serializable{
 		otopark=new Otopark();
 	}
 
+	public List<Kisi> sorumluKisiAcomp(String query) {
+		return kisiService.acomp(query);
+	}
 	
 	private void listele() {
 		lazy =new LazyDataModel<Otopark>() {
@@ -124,5 +132,9 @@ public class OtoparkMBean implements Serializable{
 	
 	public void setMessageMBean(MessageMBean messageMBean) {
 		this.messageMBean = messageMBean;
+	}
+	
+	public void setKisiService(KisiService kisiService) {
+		this.kisiService = kisiService;
 	}
 }

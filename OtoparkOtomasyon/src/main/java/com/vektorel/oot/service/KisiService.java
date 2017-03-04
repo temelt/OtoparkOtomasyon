@@ -7,6 +7,11 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.HRException;
@@ -71,5 +76,20 @@ public class KisiService {
 	
 	public void setBaseDao(BaseDao baseDao) {
 		this.baseDao = baseDao;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Kisi> acomp(String query) {
+		Session session = baseDao.getOpenSession();
+		Criteria criteria = session.createCriteria(Kisi.class);
+		criteria.add(Restrictions.or(
+				Restrictions.ilike("ad", query,MatchMode.ANYWHERE), 
+				Restrictions.ilike("soyad", query ,MatchMode.ANYWHERE)
+				));
+		
+		criteria.setMaxResults(15);
+		List lst = criteria.list();
+		session.close();
+		return lst;
 	}
 }

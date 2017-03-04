@@ -21,11 +21,12 @@ public class Otopark extends EBase {
 	 * 
 	 */
 	private static final long serialVersionUID = -1770217009007371885L;
-	String tanim;
-	String kod;
-	String adres;
-	Il il;
-	Ilce ilce;
+	private String tanim;
+	private String kod;
+	private String adres;
+	private Il il;
+	private Ilce ilce;
+	private Kisi sorumlusu;
 
 	public String getTanim() {
 		return tanim;
@@ -69,6 +70,16 @@ public class Otopark extends EBase {
 
 	public void setIlce(Ilce ilce) {
 		this.ilce = ilce;
+	}
+	
+    @JoinColumn(name = "sorumlu_kisi_id")
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
+	public Kisi getSorumlusu() {
+		return sorumlusu;
+	}
+	
+	public void setSorumlusu(Kisi sorumlusu) {
+		this.sorumlusu = sorumlusu;
 	}
 
 }

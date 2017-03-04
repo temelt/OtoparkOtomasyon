@@ -5,12 +5,12 @@
 	<artifactId>OtoparkOtomasyon</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
+
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 	</properties>
-	
+
 	<repositories>
 		<repository>
 			<id>prime-repo</id>
@@ -53,10 +53,11 @@
 		</dependency>
 
 		<dependency>
-			<groupId>postgresql</groupId>
+			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.1-901.jdbc3</version>
+			<version>9.4.1212.jre7</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.hibernate</groupId>

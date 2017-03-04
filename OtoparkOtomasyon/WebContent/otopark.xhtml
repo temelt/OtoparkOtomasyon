@@ -33,6 +33,10 @@
 						<h:outputText value="#{k.adres}" />
 					</p:column>
 					
+					<p:column headerText="Otopark Sorumlusu">
+						<h:outputText value="#{k.sorumlusu.adSoyad}" />
+					</p:column>
+					
 					<p:column headerText="İşlemler">
 						<p:commandButton icon="ui-icon-pencil" update=":frmOtopark:dlgOtopark"
 							actionListener="#{otoparkBean.seciliKayit(k.id)}"
@@ -68,6 +72,11 @@
 						<p:outputLabel value="Adres :"></p:outputLabel>
 						<p:inputText value="#{otoparkBean.otopark.adres}"></p:inputText>
 
+						<p:outputLabel value="Sorumlu Kişi :"></p:outputLabel>
+						<p:autoComplete queryDelay="1500" value="#{otoparkBean.otopark.sorumlusu}" converter="kisiConverter" 
+							minQueryLength="3" completeMethod="#{otoparkBean.sorumluKisiAcomp}" var="kisi" 
+							itemLabel="#{kisi.adSoyad}" itemValue="#{kisi}" ></p:autoComplete>
+						
 						<p:commandButton value="iptal" onclick="PF('dlgOtopark').hide()"></p:commandButton>
 						<p:commandButton value="Kaydet"
 							actionListener="#{otoparkBean.kaydet}"
