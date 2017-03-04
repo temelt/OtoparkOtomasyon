@@ -75,10 +75,6 @@
 <!-- Ya da araç bilgilerini ekleyip araç ile beraber bu bilgiler girilecek. -->
 <!-- Sadece fiyat kısmı textbox olarak alınacak. -->
 
-					<p:panelGrid columns="2">
-<!-- 						<p:outputLabel value="Plaka:"></p:outputLabel> -->
-<!-- 						<p:inputText value="#{odemeBean.odeme.aracGiris.arac.plaka}"></p:inputText> -->
-
 <!-- 						<p:outputLabel value="Giriş Zamanı:"></p:outputLabel> -->
 <!-- 						<p:calendar value="#{odemeBean.odeme.aracGiris.girisTarihi}" pattern="MM/dd/yyyy HH:mm:ss"></p:calendar> -->
 
@@ -87,12 +83,19 @@
 
 <!-- 						<p:outputLabel value="Bulunduğu Yer:"></p:outputLabel> -->
 <!-- 						<p:inputText value="#{odemeBean.odeme.aracGiris.otoparkBolum}"></p:inputText> -->
-
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Plaka:"></p:outputLabel>
+						<p:autoComplete queryDelay="1500" value="#{odemeBean.odeme.aracGiris}" converter="aracConverter" 
+							minQueryLength="3" completeMethod="#{aracBean.plakaAcomp}" var="arac" 
+							itemLabel="#{arac.plaka}" itemValue="#{arac}" ></p:autoComplete>
+						
 						<p:outputLabel value="Fiyat:"></p:outputLabel>
 						<p:inputText value="#{odemeBean.odeme.fiyat}"></p:inputText>
 
-<!-- 						<p:outputLabel value="İşlem Yapan Personel:"></p:outputLabel> -->
-<!-- 						<p:inputText value="#{odemeBean.odeme.aracGiris.otoparkBolum}"></p:inputText> -->
+						<p:outputLabel value="İşlem Yapan Personel:"></p:outputLabel>
+						<p:autoComplete queryDelay="1500" value="#{odemeBean.odeme.islemYapanPersonel}" converter="kisiConverter" 
+							minQueryLength="3" completeMethod="#{odemeBean.islemYpnPersAcomp}" var="kisi" 
+							itemLabel="#{kisi.adSoyad}" itemValue="#{kisi}" ></p:autoComplete>
 
 						<p:commandButton value="iptal" onclick="PF('dlgOdeme').hide()"></p:commandButton>
 						<p:commandButton value="Kaydet"

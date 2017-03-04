@@ -12,7 +12,9 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
+import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.Odeme;
+import com.vektorel.oot.service.KisiService;
 import com.vektorel.oot.service.OdemeService;
 import com.vektorel.oot.util.PagingResult;
 
@@ -27,6 +29,9 @@ public class OdemeMBean implements Serializable {
 
 	@ManagedProperty(value="#{odemeService}")
 	private transient OdemeService odemeService;
+	
+	@ManagedProperty(value="#{kisiService}")
+	private transient KisiService kisiService;
 	
 	@ManagedProperty(value="#{messageBean}")
 	private MessageMBean messageMBean;
@@ -74,6 +79,9 @@ public class OdemeMBean implements Serializable {
 		odeme=new Odeme();
 	}
 
+	public List<Kisi> islemYpnPersAcomp(String query) {
+		return kisiService.acomp(query);
+	}
 	
 	private void listele() {
 		lazy =new LazyDataModel<Odeme>() {
@@ -116,5 +124,9 @@ public class OdemeMBean implements Serializable {
 	
 	public void setMessageMBean(MessageMBean messageMBean) {
 		this.messageMBean = messageMBean;
+	}
+	
+	public void setKisiService(KisiService kisiService) {
+		this.kisiService = kisiService;
 	}
 }

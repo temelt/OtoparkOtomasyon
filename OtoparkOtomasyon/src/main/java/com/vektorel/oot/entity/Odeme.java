@@ -73,7 +73,7 @@ public class Odeme extends EBase{
 	}
 
     @JoinColumn(name = "islem_ypn_personel_id")
-    @ManyToOne(optional = true,fetch = FetchType.LAZY)
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
 	public Personel getIslemYapanPersonel() {
 		return islemYapanPersonel;
 	}
