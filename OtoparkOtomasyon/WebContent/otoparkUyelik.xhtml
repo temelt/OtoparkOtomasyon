@@ -1,18 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<ui:composition 
-	xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" 
-	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
+
 	<ui:composition template="/layout/layout.xhtml">
-		
+
 		<ui:define name="content">
 			<h2>Üyelik İşlemleri</h2>
-			
+
 			<h:form id="frmUyelik">
 				<p:growl id="growl" life="6000" autoUpdate="true" showDetail="true" />
 
@@ -24,8 +22,8 @@
 					value="#{uyeBean.lazy}" rows="10" paginator="true"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="5,10,100">
-					
-					<p:column headerText="Id" >
+
+					<p:column headerText="Id">
 						<h:outputText value="#{k.id}" />
 					</p:column>
 
@@ -40,21 +38,22 @@
 					<p:column headerText="Açıklama">
 						<h:outputText value="#{k.aciklama}" />
 					</p:column>
-					
+
 					<p:column headerText="Fiyat">
 						<h:outputText value="#{k.fiyat}" />
 					</p:column>
-					
+
 					<p:column headerText="Üyelik Başlangıç Tarihi">
 						<h:outputText value="#{k.uyelikBaslamaTarihi}" />
 					</p:column>
-					
+
 					<p:column headerText="Üyelik Bitiş Tarihi">
 						<h:outputText value="#{k.uyelikBitisTarihi}" />
 					</p:column>
-					
+
 					<p:column headerText="İşlemler">
-						<p:commandButton icon="ui-icon-pencil" update=":frmUyelik:dlgUyelik"
+						<p:commandButton icon="ui-icon-pencil"
+							update=":frmUyelik:dlgUyelik"
 							actionListener="#{uyeBean.seciliKayit(k.id)}"
 							oncomplete="PF('dlgUyelik').show()">
 						</p:commandButton>
@@ -62,31 +61,32 @@
 							actionListener="#{uyeBean.seciliyiSil(k.id)}"
 							update=":frmUyelik:tblUye">
 							<p:confirm header="Silme Onay" message="Kayıt Silinsin mi?"
-								icon="ui-icon-alert"/>
+								icon="ui-icon-alert" />
 						</p:commandButton>
-						
+
 						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 							<p:commandButton value="Evet" type="button"
 								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 							<p:commandButton value="Hayır" type="button"
 								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						</p:confirmDialog>
-						
+
 					</p:column>
 				</p:dataTable>
 
 
 				<!-- Yeni üye kaydı butonu -->
-				
-				<p:commandButton value="Yeni Üye Kaydı" actionListener="#{uyeBean.yeni}"
-					update=":frmUyelik:dlgUyelik" oncomplete="PF('dlgUyelik').show()"></p:commandButton>
+
+				<p:commandButton value="Yeni Üye Kaydı"
+					actionListener="#{uyeBean.yeni}" update=":frmUyelik:dlgUyelik"
+					oncomplete="PF('dlgUyelik').show()"></p:commandButton>
 
 
 
 				<!-- dlgUyelik : Dialog Uyelik -->
-				
-				<p:dialog id="dlgUyelik" widgetVar="dlgUyelik" 
-					resizable="false" header="Uyelik Kaydı" modal="true">
+
+				<p:dialog id="dlgUyelik" widgetVar="dlgUyelik" resizable="false"
+					header="Uyelik Kaydı" modal="true">
 
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Araç"></p:outputLabel>
@@ -107,9 +107,31 @@
 						<p:outputLabel value="Üyelik Bitiş Tarihi"></p:outputLabel>
 						<p:calendar value="#{uyeBean.uye.uyelikBitisTarihi}"></p:calendar>
 
+						<p:outputLabel value="İl:"></p:outputLabel>
+						<p:selectOneMenu value="#{uyeBean.uye.il}" style="width:100px" converter="ilConverter">
+							<f:selectItems var="il" itemLabel="#{il.ad}" itemValue="#{il}"
+								value="#{yerlesimMBean.ilListesi}">
+							</f:selectItems>
+							<p:ajax listener="#{uyeBean.ilChange}" update="ilce" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="İlçe:"></p:outputLabel>
+						<p:selectOneMenu widgetVar="ilce" id="ilce"
+							value="#{uyeBean.uye.ilce}" style="width:100px" converter="ilceConverter">
+							<f:selectItems var="ilce" itemLabel="#{ilce.ad}"
+								itemValue="#{ilce}" value="#{yerlesimMBean.ilceListesi}">
+							</f:selectItems>
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Kişi :"></p:outputLabel>
+						<p:autoComplete queryDelay="1000"
+							value="#{uyeBean.uye.kisi}"
+							converter="kisiConverter" minQueryLength="3"
+							completeMethod="#{uyeBean.kisiAcomp}" var="kisi"
+							itemLabel="#{kisi.adSoyad}" itemValue="#{kisi}"></p:autoComplete>
+
 						<p:commandButton value="iptal" onclick="PF('dlgUyelik').hide()"></p:commandButton>
-						<p:commandButton value="Kaydet"
-							actionListener="#{uyeBean.kaydet}"
+						<p:commandButton value="Kaydet" actionListener="#{uyeBean.kaydet}"
 							update=":frmUyelik:tblUye,:frmUyelik:dlgUyelik"
 							oncomplete="PF('dlgUyelik').hide()"></p:commandButton>
 					</p:panelGrid>

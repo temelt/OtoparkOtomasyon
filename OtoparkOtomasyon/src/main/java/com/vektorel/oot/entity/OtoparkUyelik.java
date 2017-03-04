@@ -31,6 +31,8 @@ public class OtoparkUyelik extends EBase{
 	private BigDecimal fiyat;
 	private Date uyelikBaslamaTarihi;
 	private Date uyelikBitisTarihi;
+	private Il il;
+    private Ilce ilce;
 
     @JoinColumn(name = "arac_id")
     @ManyToOne(optional = true,fetch = FetchType.LAZY)
@@ -43,7 +45,7 @@ public class OtoparkUyelik extends EBase{
 	}
 
     @JoinColumn(name = "kisi_id")
-    @ManyToOne(optional = true,fetch = FetchType.LAZY)
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
 	public Kisi getKisi() {
 		return kisi;
 	}
@@ -83,6 +85,22 @@ public class OtoparkUyelik extends EBase{
 
 	public void setUyelikBitisTarihi(Date uyelikBitisTarihi) {
 		this.uyelikBitisTarihi = uyelikBitisTarihi;
+	}
+
+	public Il getIl() {
+		return il;
+	}
+
+	public void setIl(Il il) {
+		this.il = il;
+	}
+
+	public Ilce getIlce() {
+		return ilce;
+	}
+
+	public void setIlce(Ilce ilce) {
+		this.ilce = ilce;
 	}
 
 }

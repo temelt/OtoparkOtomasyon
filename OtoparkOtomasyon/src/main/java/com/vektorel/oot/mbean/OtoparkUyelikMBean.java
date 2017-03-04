@@ -12,7 +12,9 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
+import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.OtoparkUyelik;
+import com.vektorel.oot.service.KisiService;
 import com.vektorel.oot.service.OtoparkUyelikService;
 import com.vektorel.oot.util.PagingResult;
 
@@ -38,6 +40,12 @@ public class OtoparkUyelikMBean implements Serializable{
 	
 	@ManagedProperty(value="#{messageBean}")
 	private MessageMBean messageMBean;
+	
+	@ManagedProperty(value="#{yerlesimMBean}")
+	private YerlesimMBean yerlesimMBean;
+	
+	@ManagedProperty(value="#{kisiService}")
+	private transient KisiService kisiService;
 	
 	private OtoparkUyelik uye;
 	private LazyDataModel<OtoparkUyelik> lazy;
@@ -82,6 +90,14 @@ public class OtoparkUyelikMBean implements Serializable{
 		uye=new OtoparkUyelik();
 	}
 
+	public List<Kisi> kisiAcomp(String query){
+		return kisiService.acomp(query);
+	}
+	
+	
+	public void ilChange() {
+		yerlesimMBean.ilChange(this.uye.getIl().getId());
+	}
 	
 	private void listele() {
 		lazy =new LazyDataModel<OtoparkUyelik>() {
@@ -124,6 +140,14 @@ public class OtoparkUyelikMBean implements Serializable{
 
 	public void setMessageMBean(MessageMBean messageMBean) {
 		this.messageMBean = messageMBean;
+	}
+
+	public void setYerlesimMBean(YerlesimMBean yerlesimMBean) {
+		this.yerlesimMBean = yerlesimMBean;
+	}
+
+	public void setKisiService(KisiService kisiService) {
+		this.kisiService = kisiService;
 	}
 }
 
