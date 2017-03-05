@@ -36,7 +36,7 @@ public class Arac extends EBase {
 	}
 
     @JoinColumn(name = "marka_model_id")
-    @ManyToOne(optional = true,fetch = FetchType.LAZY)
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
 	public MarkaModel getMarkaModel() {
 		return markaModel;
 	}
@@ -54,7 +54,7 @@ public class Arac extends EBase {
 	}
 
     @JoinColumn(name = "kisi_id")
-    @ManyToOne(optional = true,fetch = FetchType.LAZY)
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
 	public Kisi getKisi() {
 		return kisi;
 	}

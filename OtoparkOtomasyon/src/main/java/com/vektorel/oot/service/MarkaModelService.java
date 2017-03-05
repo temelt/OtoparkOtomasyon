@@ -7,6 +7,12 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+
+import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.MarkaModel;
 import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.HRException;
@@ -94,6 +100,19 @@ public class MarkaModelService {
 	public List<MarkaModel> getModel(Long id){
 		
 		return baseDao.getModel(id, MarkaModel.class); 
+	}
+
+	public List<MarkaModel> markaModelAcomp(String term) {
+		Session session = baseDao.getOpenSession();
+		Criteria criteria = session.createCriteria(MarkaModel.class);
+		criteria.add(
+				Restrictions.ilike("tanim", term ,MatchMode.ANYWHERE)
+				);
+		
+		criteria.setMaxResults(15);
+		List lst = criteria.list();
+		session.close();
+		return lst;
 	}
 	
 

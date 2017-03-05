@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/layout/layout.xhtml">
+		<ui:define name="content">
+			<h2>Araç İşlemleri</h2>
+			<h:form id="frmArac">
+				<p:growl id="growl" life="6000" autoUpdate="true" showDetail="true" />
+				<p:dataTable id="tblArac" widgetVar="tblArac" var="k" lazy="true"
+					value="#{aracBean.lazy}" rows="10" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,100">
+					<p:column headerText="Id" >
+						<h:outputText value="#{k.id}" />
+					</p:column>
+
+					<p:column headerText="Plaka">
+						<h:outputText value="#{k.plaka}" />
+					</p:column>
+
+					<p:column headerText="Marka Model">
+						<h:outputText value="#{k.markaModel.tanim}" />
+					</p:column>
+
+					<p:column headerText="Renk">
+						<h:outputText value="#{k.renk}" />
+					</p:column>
+
+					<p:column headerText="Ad Soyad">
+						<h:outputText value="#{k.kisi.adSoyad}" />
+					</p:column>
+
+					<p:column headerText="Ana Adı">
+						<h:outputText value="#{k.kisiAdSoyad}" />
+					</p:column>
+					
+					<p:column headerText="İşlemler">
+						<p:commandButton icon="ui-icon-pencil" update=":frmArac:dlgArac"
+							actionListener="#{aracBean.seciliKayit(k.id)}"
+							oncomplete="PF('dlgArac').show()"></p:commandButton>
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{aracBean.seciliyiSil(k.id)}"
+							update=":frmArac:tblArac">
+							<p:confirm header="Silme Onay" message="Kayıt Silinsin mi?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Evet" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Hayır" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:column>
+				</p:dataTable>
+
+				<p:commandButton value="Yeni" actionListener="#{aracBean.yeni}"
+					update=":frmArac:dlgArac" oncomplete="PF('dlgArac').show()"></p:commandButton>
+
+				<p:dialog id="dlgArac" widgetVar="dlgArac" width="400"
+					resizable="false" header="Araç Kaydı" modal="true">
+
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Plaka :"></p:outputLabel>
+						<p:inputText value="#{aracBean.arac.plaka}"></p:inputText>
+						
+						<p:outputLabel value="Renk :"></p:outputLabel>
+						<p:selectOneMenu value="#{aracBean.arac.renk}" style="width:125px">
+				            <f:selectItem itemLabel="BEYAZ" itemValue="BEYAZ" />
+				            <f:selectItem itemLabel="SIYAH" itemValue="SIYAH" />
+				            <f:selectItem itemLabel="KIRMIZI" itemValue="KIRMIZI" />
+				            <f:selectItem itemLabel="METALIK" itemValue="METALIK" />
+				            <f:selectItem itemLabel="GRI" itemValue="GRI" />
+				        </p:selectOneMenu>
+ 	
+						<p:outputLabel value="Kişi :"></p:outputLabel>
+						<p:autoComplete queryDelay="1500" value="#{aracBean.arac.kisi}" converter="kisiConverter" 
+							minQueryLength="3" completeMethod="#{otoparkBean.sorumluKisiAcomp}" var="kisi" 
+							itemLabel="#{kisi.adSoyad}" itemValue="#{kisi}" ></p:autoComplete>
+
+						<p:outputLabel value="Ad Soyad:"></p:outputLabel>
+						<p:inputText value="#{aracBean.arac.kisiAdSoyad}"></p:inputText>
+
+						<p:outputLabel value="Marka Model :"></p:outputLabel>
+						<p:autoComplete queryDelay="1500" value="#{aracBean.arac.markaModel}" converter="markaModelConverter" 
+							minQueryLength="3" completeMethod="#{aracBean.markaModelAcomp}" var="mm" 
+							itemLabel="#{mm.tanim}" itemValue="#{mm}" ></p:autoComplete>
+												
+						<p:commandButton value="iptal" onclick="PF('dlgArac').hide()"></p:commandButton>
+						<p:commandButton value="Kaydet"
+							actionListener="#{aracBean.kaydet}"
+							update=":frmArac:tblArac,:frmArac:dlgArac"
+							oncomplete="PF('dlgArac').hide()"></p:commandButton>
+					</p:panelGrid>
+
+				</p:dialog>
+
+				<p:ajaxStatus onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()" />
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+				    Yükleniyor...
+				</p:dialog>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:composition>

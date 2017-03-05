@@ -87,6 +87,8 @@ public class OtoparkUyelik extends EBase{
 		this.uyelikBitisTarihi = uyelikBitisTarihi;
 	}
 
+    @JoinColumn(name = "il_id")
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
 	public Il getIl() {
 		return il;
 	}
@@ -95,6 +97,8 @@ public class OtoparkUyelik extends EBase{
 		this.il = il;
 	}
 
+    @JoinColumn(name = "ilce_id")
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
 	public Ilce getIlce() {
 		return ilce;
 	}

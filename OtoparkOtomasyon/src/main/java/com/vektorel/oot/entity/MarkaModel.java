@@ -50,4 +50,13 @@ public class MarkaModel extends EBase {
 		this.markaModel = markaModel;
 	}
 
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof MarkaModel){
+    		if(((MarkaModel) obj).getId().equals(this.getId())){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 }
