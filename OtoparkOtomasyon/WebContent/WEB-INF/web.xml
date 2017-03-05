@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-        xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
@@ -12,24 +11,24 @@
 		<welcome-file>dashboard.jsf</welcome-file>
 	</welcome-file-list>
 
-	<context-param>  
-	    <param-name>primefaces.THEME</param-name>  
-	    <param-value>redmond</param-value>  
-	</context-param>  
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>redmond</param-value>
+	</context-param>
 
-    <context-param>
-        <param-name>BootsFaces_THEME</param-name>
-        <param-value>spacelab</param-value>
-    </context-param>
-    <context-param>
-        <param-name>BootsFaces_USETHEME</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <context-param>
-        <param-name>net.bootsfaces.get_jquery_from_cdn</param-name>
-        <param-value>false</param-value>
-    </context-param>
-    
+	<context-param>
+		<param-name>BootsFaces_THEME</param-name>
+		<param-value>spacelab</param-value>
+	</context-param>
+	<context-param>
+		<param-name>BootsFaces_USETHEME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>net.bootsfaces.get_jquery_from_cdn</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -53,4 +52,13 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
+	<filter>
+		<filter-name>LoginFilter
+		</filter-name>
+		<filter-class>com.vektorel.oot.filters.AuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
 </web-app>

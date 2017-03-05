@@ -13,13 +13,14 @@
     </h:head>
     <h:body style="padding-top: 60px">
         <h:outputScript library="holder" name="holder.js" />
+        <h:form>
         <b:navBar brand="Otopark Bilgi Sistemi" brandHref="#" inverse="true" fixed="top" fluid="true">
             
             <b:navbarLinks pull="right">
                 <b:navLink value="Dashboard" href="#"></b:navLink>
                 <b:navLink value="Settings" href="#"></b:navLink>
-                <b:navLink value="Profile" href="#"></b:navLink>
-                <b:navLink value="#{indexBean.aktifKullanici}" href="#"></b:navLink>
+                <b:navLink value="#{username}" href="#"></b:navLink>
+                <b:navLink href="/OtoparkOtomasyon/secure/logout.jsf" value="Çıkış" />
             </b:navbarLinks>
         </b:navBar>
         <b:container fluid="true">
@@ -27,13 +28,13 @@
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
                     <b:listLinks>
                         <b:navLink header="Menü" />
-                        <b:navLink href="/OtoparkOtomasyon/dashboard.jsf" value="Ana Sayfa" />
-                        <b:navLink href="/OtoparkOtomasyon/kisi.jsf" value="Kişi Tanımları" />
-                        <b:navLink href="/OtoparkOtomasyon/otopark.jsf" value="Otopark Tanımları" />
-                        <b:navLink href="/OtoparkOtomasyon/mmodel.jsf" value="Marka Model Tanımları" />
-                        <b:navLink href="/OtoparkOtomasyon/otoparkUyelik.jsf" value="Otopark Üyelik" />
-                        <b:navLink href="/OtoparkOtomasyon/odeme.jsf" value="Ödeme" />
-                        <b:navLink href="/OtoparkOtomasyon/arac.jsf" value="Araç Tanımları" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/dashboard.jsf" value="Ana Sayfa" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/kisi.jsf" value="Kişi Tanımları" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/otopark.jsf" value="Otopark Tanımları" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/mmodel.jsf" value="Marka Model Tanımları" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/otoparkUyelik.jsf" value="Otopark Üyelik" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/odeme.jsf" value="Ödeme" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/arac.jsf" value="Araç Tanımları" />
                     </b:listLinks>
                 </b:column>
                 
@@ -46,6 +47,7 @@
                
             </b:row>
         </b:container> 
+        </h:form>
         <style type="text/css">
         .ui-widget, .ui-widget .ui-widget 
 		{

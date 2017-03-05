@@ -18,6 +18,10 @@ import org.hibernate.criterion.Restrictions;
 @ApplicationScoped
 public class BaseDao {
 	
+	public BaseDao() {
+		System.out.println("BaseDao created..");
+	}
+	
 	public boolean save(Object entity) throws Exception {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction trans = session.beginTransaction();
@@ -115,7 +119,6 @@ public class BaseDao {
 		return criteria.uniqueResult();
 	}
 	
-	@SuppressWarnings("unused")
 	public Session getOpenSession() {
 		return HibernateUtil.getSessionFactory().openSession();
 	}

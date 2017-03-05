@@ -14,6 +14,7 @@ import org.primefaces.model.SortOrder;
 
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.service.KisiService;
+import com.vektorel.oot.util.OrderUtil;
 import com.vektorel.oot.util.PagingResult;
 
 /**
@@ -100,7 +101,7 @@ public class KisiMBean implements Serializable{
 			@Override
 			public List<Kisi> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
 				
-				PagingResult pagingResult = kisiService.getByPaging(first, pageSize, filters);
+				PagingResult pagingResult = kisiService.getByPaging(first, pageSize, filters,new OrderUtil(sortField, sortOrder));
 				this.setRowCount(pagingResult.getRowCount().intValue());
 				return pagingResult.getList();
 			}

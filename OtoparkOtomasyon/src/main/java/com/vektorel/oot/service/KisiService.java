@@ -10,11 +10,14 @@ import javax.faces.bean.ManagedProperty;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.HRException;
+import com.vektorel.oot.util.OrderUtil;
 import com.vektorel.oot.util.PagingResult;
 
 /**
@@ -70,8 +73,54 @@ public class KisiService {
 		return (Kisi) baseDao.getById(id, Kisi.class);
 	}
 
-	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
-		return baseDao.getByPaging(Kisi.class, first, pageSize, filters);
+	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters, OrderUtil order) {
+		PagingResult result = new PagingResult();
+		Session session = baseDao.getOpenSession();
+		Criteria criteria = session.createCriteria(Kisi.class);
+		
+		if(filters.containsKey("ad")){
+			criteria.add(Restrictions.ilike("ad", filters.get("ad").toString(),MatchMode.ANYWHERE));
+		}
+		
+		if(filters.containsKey("anaAdi")){
+			criteria.add(Restrictions.ilike("anaAdi", filters.get("anaAdi").toString(),MatchMode.ANYWHERE));
+		}
+		
+		if(filters.containsKey("soyad")){
+			criteria.add(Restrictions.ilike("soyad", filters.get("soyad").toString(),MatchMode.ANYWHERE));
+		}
+		
+		if(filters.containsKey("il.ad")){
+			Criteria crt = criteria.createAlias("il", "ilAls");
+			crt.add(Restrictions.ilike("ilAls.ad", filters.get("il.ad").toString(),MatchMode.ANYWHERE));
+		}
+		
+//		Ýlçesinin ilinin adýný sorgulamak için
+//		if(filters.containsKey("il.ad")){
+//			Criteria crt = criteria.createAlias("ilce", "alias");
+//			Criteria crt2 = criteria.createAlias("alias.il", "ilt");
+//			crt2.add(Restrictions.ilike("ilt.ad", filters.get("il.ad").toString(),MatchMode.ANYWHERE));
+//		}
+		
+		
+		criteria.setProjection(Projections.rowCount());
+		result.setRowCount((Long) criteria.uniqueResult());
+				
+		criteria.setProjection(null);
+		criteria.setFirstResult(first);
+		criteria.setMaxResults(pageSize);
+		
+		if(order.getField()!=null){
+			if(order.getOrderType()==OrderUtil.OrderType.ASC)
+				criteria.addOrder(Order.asc(order.getField()));
+			else
+				criteria.addOrder(Order.desc(order.getField()));
+		}
+		
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		result.setList(criteria.list());
+		session.close();
+		return result;
 	}
 	
 	public void setBaseDao(BaseDao baseDao) {
