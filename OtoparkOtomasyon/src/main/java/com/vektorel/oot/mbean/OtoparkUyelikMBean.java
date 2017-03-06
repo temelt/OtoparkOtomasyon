@@ -12,8 +12,10 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
+import com.vektorel.oot.entity.Arac;
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.OtoparkUyelik;
+import com.vektorel.oot.service.AracService;
 import com.vektorel.oot.service.KisiService;
 import com.vektorel.oot.service.OtoparkUyelikService;
 import com.vektorel.oot.util.PagingResult;
@@ -44,6 +46,9 @@ public class OtoparkUyelikMBean implements Serializable{
 	@ManagedProperty(value="#{yerlesimMBean}")
 	private YerlesimMBean yerlesimMBean;
 	
+	@ManagedProperty(value="#{aracService}")
+	private transient AracService aracService;
+	
 	@ManagedProperty(value="#{kisiService}")
 	private transient KisiService kisiService;
 	
@@ -51,6 +56,8 @@ public class OtoparkUyelikMBean implements Serializable{
 	private LazyDataModel<OtoparkUyelik> lazy;
 
 	
+
+
 	/**
 	 * Methods
 	 */
@@ -90,6 +97,11 @@ public class OtoparkUyelikMBean implements Serializable{
 		uye=new OtoparkUyelik();
 	}
 
+	public List<Arac> aracAcomp(String query){
+		return aracService.acomp(query);
+	}
+	
+	
 	public List<Kisi> kisiAcomp(String query){
 		return kisiService.acomp(query);
 	}
@@ -146,8 +158,14 @@ public class OtoparkUyelikMBean implements Serializable{
 		this.yerlesimMBean = yerlesimMBean;
 	}
 
+	public void setAracService(AracService aracService) {
+		this.aracService = aracService;
+	}
+	
 	public void setKisiService(KisiService kisiService) {
 		this.kisiService = kisiService;
 	}
+	
+	
 }
 

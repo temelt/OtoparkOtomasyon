@@ -10,18 +10,15 @@
 
 		<ui:define name="content">
 			
-
 			<h:form id="frmUyelik">
 				<p:growl id="growl" life="6000" autoUpdate="true" showDetail="true" />
-
-
 
 				<!-- tblUye : Tüm üye listesi & tablosu  -->
 
 				<p:dataTable id="tblUye" widgetVar="tblUye" var="k" lazy="true"
 					reflow="true" value="#{uyeBean.lazy}" rows="10" paginator="true"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,100">
+					rowsPerPageTemplate="5,10,100" rowKey="#{k.id}" >
 
 					<f:facet name="header">
 					<h2 style="height: 30px; color: white;" >Üyelik İşlemleri</h2>
@@ -32,15 +29,15 @@
 						<h:outputText value="#{k.id}" />
 					</p:column>
 
-					<p:column headerText="Araç">
-						<h:outputText value="#{k.arac}" />
+					<p:column headerText="Araç" filterBy="#{k.arac.plaka}">
+						<h:outputText value="#{k.arac.plaka}" />
 					</p:column>
 
-					<p:column headerText="Kişi">
+					<p:column headerText="Kişi" filterBy="#{k.kisi.adSoyad}">
 						<h:outputText value="#{k.kisi.adSoyad}" />
 					</p:column>
 
-					<p:column headerText="Açıklama">
+					<p:column headerText="Açıklama" filterBy="#{k.aciklama}">
 						<h:outputText value="#{k.aciklama}" />
 					</p:column>
 
@@ -103,9 +100,13 @@
 					position="center">
 
 					<p:panelGrid columns="2" layout="grid">
-						<p:outputLabel value="Araç Plaka:"></p:outputLabel>
-						<p:inputText value="#{uyeBean.uye.arac.plaka}"></p:inputText>
 
+						<p:outputLabel value="Araç plaka :"></p:outputLabel>
+						<p:autoComplete queryDelay="1000" value="#{uyeBean.uye.arac}"
+							converter="aracConverter" minQueryLength="3"
+							completeMethod="#{uyeBean.aracAcomp}" var="arac"
+							itemLabel="#{arac.plaka}" itemValue="#{arac}"></p:autoComplete>
+										
 						<p:outputLabel value="Kişi :"></p:outputLabel>
 						<p:autoComplete queryDelay="1000" value="#{uyeBean.uye.kisi}"
 							converter="kisiConverter" minQueryLength="3"
