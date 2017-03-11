@@ -10,7 +10,14 @@
 	<ui:composition template="/layout/layout.xhtml">
 		<ui:define name="content">
 			<h2>Hoşgeldiniz</h2>
-			
+			<h:form>
+				<p:chart id="chart" widgetVar="chart" type="line" model="#{indexBean.areaModel}" style="height:300px" />
+				
+				<p:chart  type="bar" model="#{indexBean.barModel}" style="height:300px">
+				
+				</p:chart>
+
+			</h:form>
 		</ui:define>
 	</ui:composition>
 </ui:composition>

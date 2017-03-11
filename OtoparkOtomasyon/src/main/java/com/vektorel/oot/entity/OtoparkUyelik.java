@@ -35,7 +35,7 @@ public class OtoparkUyelik extends EBase{
     private Ilce ilce;
 
     @JoinColumn(name = "arac_id")
-    @ManyToOne(optional = true,fetch = FetchType.LAZY)
+    @ManyToOne(optional = true,fetch = FetchType.EAGER)
 	public Arac getArac() {
 		return arac;
 	}

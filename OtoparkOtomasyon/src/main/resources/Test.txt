@@ -1,0 +1,37 @@
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10000,3,'01/08/2008','Norton','Kyle'),(10001,2,'13/03/2015','Hoffman','Wang'),(10002,3,'05/07/2014','Medina','Chadwick'),(10003,0,'27/05/2012','Mays','Declan'),(10004,2,'28/12/2011','Mcpherson','Chaney'),(10005,1,'22/06/2014','Harrison','Yuli'),(10006,0,'30/10/2007','Kelly','Thane'),(10007,2,'24/05/2014','Livingston','Cyrus'),(10008,2,'22/04/2006','Owen','Gray'),(10009,2,'13/07/2006','Mcleod','Benjamin');
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10010,2,'04/08/2017','Cook','Roth'),(10011,2,'14/08/2015','Sampson','Eagan'),(10012,3,'26/06/2013','Leblanc','Tate'),(10013,3,'26/11/2012','Cabrera','Maxwell'),(10014,1,'15/11/2006','Lamb','Thomas'),(10015,1,'18/01/2007','Warren','Tucker'),(10016,1,'28/03/2007','England','Garrison'),(10017,2,'22/10/2017','Fisher','Wyatt'),(10018,3,'03/09/2009','Espinoza','Dexter'),(10019,2,'17/02/2010','Macdonald','Matthew');
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10020,2,'08/05/2017','Meyers','Eagan'),(10021,2,'10/08/2006','Wong','Hamish'),(10022,1,'10/08/2006','Reed','Garrison'),(10023,0,'09/02/2014','Rowe','Ezra'),(10024,1,'14/04/2016','Blevins','Lester'),(10025,2,'23/08/2015','Jefferson','Timothy'),(10026,2,'29/09/2007','Hooper','Cade'),(10027,1,'19/10/2017','Foster','Abel'),(10028,1,'16/03/2008','Wolf','Simon'),(10029,0,'20/09/2013','Jefferson','Brendan');
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10030,2,'20/09/2012','Burns','Lars'),(10031,2,'29/03/2016','Gross','Aidan'),(10032,0,'10/05/2017','Fox','Galvin'),(10033,1,'13/08/2017','Mccarthy','Hoyt'),(10034,0,'11/06/2006','Ellison','Barry'),(10035,1,'20/09/2015','Powell','Ronan'),(10036,2,'29/08/2015','Terrell','Micah'),(10037,1,'22/09/2007','Bowers','Dean'),(10038,1,'15/06/2007','Donaldson','Christopher'),(10039,0,'06/08/2014','Lester','Flynn');
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10040,0,'22/01/2016','Clark','Paki'),(10041,2,'11/03/2008','Murray','Devin'),(10042,3,'25/05/2014','Logan','Justin'),(10043,2,'18/09/2015','Serrano','Zeus'),(10044,3,'18/11/2016','Bush','Holmes'),(10045,1,'17/05/2016','Delaney','Aristotle'),(10046,2,'12/07/2006','Reed','Harrison'),(10047,3,'24/01/2007','Macdonald','Addison'),(10048,0,'14/05/2014','Whitfield','Chaney'),(10049,1,'14/10/2014','Rowe','Avram');
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10050,2,'24/05/2011','Brady','Ezra'),(10051,1,'14/01/2006','Christensen','Knox'),(10052,2,'29/05/2005','Gardner','Armando'),(10053,3,'05/04/2010','Brooks','Upton'),(10054,0,'23/08/2017','Farmer','Clarke'),(10055,3,'26/01/2006','Weiss','Uriah'),(10056,1,'01/03/2018','Strickland','Joseph'),(10057,3,'14/08/2015','Wilkinson','Kasimir'),(10058,3,'29/01/2016','Salinas','Thomas'),(10059,0,'18/04/2016','Mccoy','Gavin');
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10060,2,'31/05/2005','Underwood','Vaughan'),(10061,0,'29/06/2008','Blair','Jasper'),(10062,2,'27/10/2007','Banks','Brody'),(10063,0,'03/04/2015','Leach','Lawrence'),(10064,2,'04/04/2015','Stewart','Alfonso'),(10065,0,'04/09/2009','Strickland','Tad'),(10066,3,'14/12/2006','Ferguson','Dean'),(10067,0,'02/02/2006','Owen','Levi'),(10068,3,'26/03/2010','Lancaster','Reuben'),(10069,2,'09/01/2007','Emerson','Brent');
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10070,2,'05/10/2013','Wagner','Fritz'),(10071,3,'21/10/2008','Wilson','Tarik'),(10072,2,'16/04/2005','Hancock','Ali'),(10073,3,'01/03/2013','Bass','Gray'),(10074,2,'16/01/2010','Potter','Giacomo'),(10075,3,'16/04/2008','Fulton','Allen'),(10076,1,'19/04/2012','Orr','Conan'),(10077,3,'23/11/2012','Fuller','Jared'),(10078,2,'09/06/2006','Frye','Vaughan'),(10079,1,'22/10/2017','Guthrie','Herrod');
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10080,2,'11/05/2010','Wynn','Philip'),(10081,2,'08/01/2017','Duran','Jerry'),(10082,1,'31/05/2005','Finley','Brett'),(10083,2,'02/01/2013','Mcmillan','Moses'),(10084,2,'25/12/2016','Doyle','Conan'),(10085,0,'17/02/2006','Snyder','Plato'),(10086,0,'14/11/2013','Henry','Harlan'),(10087,2,'30/06/2014','Price','Alfonso'),(10088,1,'09/10/2013','Gardner','Ciaran'),(10089,1,'08/10/2016','Hopkins','Kennedy');
+INSERT INTO "gnl_kisi" (id,cinsiyet,dogumtarihi,soyad,ad) VALUES (10090,0,'23/10/2007','Harrell','Chancellor'),(10091,3,'15/05/2013','Pierce','Graiden'),(10092,0,'29/08/2016','Macdonald','Jacob'),(10093,2,'17/02/2009','Duran','Reed'),(10094,0,'07/03/2012','Calderon','Lewis'),(10095,2,'17/03/2017','Dotson','Tiger'),(10096,1,'10/10/2008','Barker','Allen'),(10097,3,'08/12/2008','Robinson','Paki'),(10098,1,'26/05/2013','Beach','Leonard'),(10099,3,'05/05/2007','Bass','Adrian');
+
+
+
+
+
+
+
+select 
+k.id,
+case k.cinsiyet when 0 then 'ERKEK' else 'KADIN' end as cinsiyet
+from gnl_kisi k
+
+select 
+k.id,
+case k.cinsiyet when 0 then 'ERKEK' when 1 then 'KADIN' else 'BÝLÝNMÝYOR' end as cinsiyet
+from gnl_kisi k
+
+-- view haline getirmek için create or replace view vw_kisi_cinsiyet_yil as
+Select 
+EXTRACT(YEAR FROM k.dogumtarihi) as yil,
+case k.cinsiyet when 0 then 'ERKEK' when 1 then 'KADIN' else 'BÝLÝNMÝYOR' end as cinsiyet,
+count(k.id) as sayisi
+from gnl_kisi as k where yil=2015 group by k.cinsiyet, EXTRACT(YEAR FROM k.dogumtarihi)
+order by yil,cinsiyet
+
+
+select * from gnl_kisi k

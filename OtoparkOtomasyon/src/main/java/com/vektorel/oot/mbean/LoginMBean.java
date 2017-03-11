@@ -35,7 +35,6 @@ public class LoginMBean implements Serializable {
 	private void init() {
 		System.out.println("Login bean initialized...");
 	}
-
 	
 	public void login() {
 		try {

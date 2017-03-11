@@ -27,5 +27,6 @@
     <mapping class="com.vektorel.oot.entity.Personel"></mapping>
     <mapping class="com.vektorel.oot.entity.Renk"></mapping>
     <mapping class="com.vektorel.oot.entity.Kullanici"></mapping>
+    <mapping class="com.vektorel.oot.util.CinsiyetYilDagilimi"></mapping>
   </session-factory>
 </hibernate-configuration>
