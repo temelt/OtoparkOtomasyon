@@ -3,19 +3,17 @@ package com.vektorel.oot.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.CinsiyetYilDagilimi;
 
 
-@ManagedBean(name = "raporService")
-@ApplicationScoped
+@Service
 public class RaporService {
 
 	
@@ -26,15 +24,15 @@ public class RaporService {
 													    +"from gnl_kisi as k  group by k.cinsiyet, EXTRACT(YEAR FROM k.dogumtarihi) "
 													    +"order by yil,cinsiyet ";
 	
-	@ManagedProperty("#{baseDao}")
+	@Autowired
 	private transient BaseDao baseDao;
 	
 	@SuppressWarnings("rawtypes")
+	@Transactional
 	public List<CinsiyetYilDagilimi> getCinsiyetYilDagilimiListesi() {
-		Session session = baseDao.getOpenSession();
+		Session session = baseDao.getCurrentSession();
 		SQLQuery query = session.createSQLQuery(CINSIYET_YIL_DAGILIMI);
 		List list = query.list();
-		session.close();
 		List<CinsiyetYilDagilimi> retList=new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			Object[] el  = (Object[]) list.get(i);
@@ -47,13 +45,5 @@ public class RaporService {
 		return retList;
 	}
 	
-	
-	public BaseDao getBaseDao() {
-		return baseDao;
-	}
-	
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 	
 }

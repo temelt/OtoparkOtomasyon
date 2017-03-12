@@ -1,22 +1,19 @@
 package com.vektorel.oot.service;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.vektorel.oot.entity.Kullanici;
 import com.vektorel.oot.util.BaseDao;
 
-
-@ManagedBean(name = "kullaniciService", eager=true)
-@ApplicationScoped
+@Service
 public class KullaniciService {
 
 
-	@ManagedProperty(value = "#{baseDao}")
+	@Autowired
 	private transient BaseDao baseDao;
 	
 	public KullaniciService() {
@@ -24,7 +21,7 @@ public class KullaniciService {
 	}
 	
 	public Kullanici getUserByUnameAndPass(String uname,String pwd) {
-		Session session = baseDao.getOpenSession();
+		Session session = baseDao.getCurrentSession();
 		Criteria criteria = session.createCriteria(Kullanici.class);
 		criteria.add(Restrictions.eq("uname", uname));
 		criteria.add(Restrictions.eq("pwd", pwd));

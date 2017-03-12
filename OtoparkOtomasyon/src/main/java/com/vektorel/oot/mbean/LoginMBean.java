@@ -3,17 +3,18 @@ package com.vektorel.oot.mbean;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Kullanici;
 import com.vektorel.oot.service.KullaniciService;
 
-@ManagedBean(name = "loginBean")
-@SessionScoped
+@Controller("loginBean")
+@Scope("session")
 public class LoginMBean implements Serializable {
 
 	/**
@@ -25,7 +26,7 @@ public class LoginMBean implements Serializable {
 		System.out.println("LoginMBean created..");
 	}
 	
-	@ManagedProperty(value="#{kullaniciService}")
+	@Autowired
 	private transient KullaniciService kullaniciService ;
 
 	private String uname;
@@ -78,11 +79,4 @@ public class LoginMBean implements Serializable {
 		this.pass = pass;
 	}
 	
-	public KullaniciService getKullaniciService() {
-		return kullaniciService;
-	}
-	
-	public void setKullaniciService(KullaniciService kullaniciService) {
-		this.kullaniciService = kullaniciService;
-	}
 }

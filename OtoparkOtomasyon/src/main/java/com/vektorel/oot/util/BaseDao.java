@@ -3,82 +3,72 @@ package com.vektorel.oot.util;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
-@ManagedBean(name="baseDao")
-@ApplicationScoped
+@Repository("baseDao")
 public class BaseDao {
 	
-	public BaseDao() {
-		System.out.println("BaseDao created..");
-	}
+	@Autowired
+	private SessionFactory sessionFactory;
 	
+	
+	@Transactional(readOnly=false)
 	public boolean save(Object entity) throws Exception {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction trans = session.beginTransaction();
-		session.save(entity);
-		trans.commit();
-		session.close();
+		getCurrentSession().save(entity);
 		return true;
 	}
 
+	@Transactional(readOnly=false)
 	public boolean update(Object entity) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction trans = session.beginTransaction();
-		session.update(entity);
-		trans.commit();
-		session.close();
+		getCurrentSession().update(entity);
 		return true;
 	}
 
+	@Transactional(readOnly=false)
 	public boolean delete(Object entity) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction trans = session.beginTransaction();
-		session.delete(entity);
-		trans.commit();
-		session.close();
+		getCurrentSession().delete(entity);
 		return true;
 	}
 
+	@Transactional(readOnly=false)
 	@SuppressWarnings({ "rawtypes" })
 	public boolean delete(Long entityId,Class cls) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction trans = session.beginTransaction();
-		session.delete(getById(entityId,cls));
-		trans.commit();
-		session.close();
+		getCurrentSession().delete(getById(entityId,cls));;
 		return true;
 	}
 
+	@Transactional
 	@SuppressWarnings({ "rawtypes" })
 	public List getAll(Class cls) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = getCurrentSession();
 		Criteria criteria = session.createCriteria(cls);
 		criteria.addOrder(Order.asc("id"));
 		return criteria.list();
 	}
 
+	@Transactional
 	@SuppressWarnings({ "rawtypes" })
 	public Object getById(Long id,Class cls) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = getCurrentSession();
 		Criteria criteria = session.createCriteria(cls);
 		criteria.add(Restrictions.eq("id", id));
 		return criteria.uniqueResult();
 	}
 
+	@Transactional
 	@SuppressWarnings({ "rawtypes" })
 	public PagingResult getByPaging(Class cls,int first, int pageSize, Map<String, Object> filters) {
 		PagingResult result = new PagingResult();
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = getCurrentSession();
 		Criteria criteria = session.createCriteria(cls);
 		criteria.setProjection(Projections.rowCount());
 		result.setRowCount((Long) criteria.uniqueResult());
@@ -95,32 +85,17 @@ public class BaseDao {
 		return result;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public List getMarka(Class cls) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Criteria criteria = session.createCriteria(cls);
-		criteria.add(Restrictions.isNull("markaModel"));
-		return criteria.list();
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public List getModel(Long markaModel, Class cls) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Criteria criteria = session.createCriteria(cls);
-		criteria.add(Restrictions.eq("markaModel.id", markaModel));
-		return criteria.list();
-	}
-	
+	@Transactional
 	@SuppressWarnings({ "rawtypes" })
 	public Object getMarkaAd(String tanim,Class cls) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = getCurrentSession();
 		Criteria criteria = session.createCriteria(cls);
 		criteria.add(Restrictions.eq("tanim", tanim));
 		return criteria.uniqueResult();
 	}
 	
-	public Session getOpenSession() {
-		return HibernateUtil.getSessionFactory().openSession();
+	public Session getCurrentSession() {
+		return sessionFactory.getCurrentSession();
 	}
 
 }

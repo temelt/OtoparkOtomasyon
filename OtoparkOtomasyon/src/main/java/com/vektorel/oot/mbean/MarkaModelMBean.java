@@ -50,7 +50,7 @@ public class MarkaModelMBean implements Serializable {
 		listele();
 		tree();
 		markaComboDoldur();
-		markaListe = markaModelService.getMarkaList(markaModel);
+		//markaListe = markaModelService.getMarkaList(markaModel);
 		System.out.println("---");
 	}
 	
@@ -59,19 +59,19 @@ public class MarkaModelMBean implements Serializable {
 		this.root = new DefaultTreeNode("Root Node", null);
 		// Create child node
 
-		List<MarkaModel> markaList = markaModelService.getMarkaList(markaModel);
-		// List<MarkaModel> modelList = markaModelService.getModel(markaModel);
+//		List<MarkaModel> markaList = markaModelService.getMarkaList(markaModel);
+//		// List<MarkaModel> modelList = markaModelService.getModel(markaModel);
+//
+//		for (MarkaModel marka : markaList) {
+//			child = new DefaultTreeNode(marka.getTanim(), this.root);
+//			child.setParent(this.root);
+//			List<MarkaModel> modelList = markaModelService.getModel(marka.getId());
+//			for (MarkaModel model : modelList) {
+//				descendent = new DefaultTreeNode(model.getTanim(), child);
+//				descendent.setParent(child);
+//			}
 
-		for (MarkaModel marka : markaList) {
-			child = new DefaultTreeNode(marka.getTanim(), this.root);
-			child.setParent(this.root);
-			List<MarkaModel> modelList = markaModelService.getModel(marka.getId());
-			for (MarkaModel model : modelList) {
-				descendent = new DefaultTreeNode(model.getTanim(), child);
-				descendent.setParent(child);
-			}
-
-		}
+//		}
 
 		// Reference the parent of child node
 		//child.setParent(this.root);
@@ -147,11 +147,11 @@ public class MarkaModelMBean implements Serializable {
 
 	private void markaComboDoldur() {
 
-		List<MarkaModel> markaListe = markaModelService.getMarkaList(markaModel);
-		for (MarkaModel markaModel : markaListe) {
-			 liste.add(markaModel.getTanim());
-
-		}
+//		List<MarkaModel> markaListe = markaModelService.getMarkaList(markaModel);
+//		for (MarkaModel markaModel : markaListe) {
+//			 liste.add(markaModel.getTanim());
+//
+//		}
 	}
 
 	public MarkaModelService getMarkaModelService() {

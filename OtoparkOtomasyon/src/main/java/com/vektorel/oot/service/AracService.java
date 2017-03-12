@@ -3,14 +3,12 @@ package com.vektorel.oot.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.vektorel.oot.entity.Arac;
 import com.vektorel.oot.util.BaseDao;
@@ -22,11 +20,10 @@ import com.vektorel.oot.util.PagingResult;
  * @author temelt
  * 
  */
-@ManagedBean(name = "aracService")
-@ApplicationScoped
+@Service
 public class AracService {
 
-	@ManagedProperty(value = "#{baseDao}")
+	@Autowired
 	private transient BaseDao baseDao;
 
 	public boolean save(Arac entity) throws Exception {
@@ -76,7 +73,7 @@ public class AracService {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<Arac> acomp(String query) {
-		Session session = baseDao.getOpenSession();
+		Session session = baseDao.getCurrentSession();
 		Criteria criteria = session.createCriteria(Arac.class);
 		criteria.add(
 				Restrictions.ilike("plaka", query,MatchMode.ANYWHERE)

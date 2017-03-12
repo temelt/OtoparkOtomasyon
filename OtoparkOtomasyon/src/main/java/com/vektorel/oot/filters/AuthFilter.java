@@ -21,20 +21,24 @@ public class AuthFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,FilterChain filterChain) throws IOException, ServletException {
-		try {
-			HttpServletRequest reqt = (HttpServletRequest) request;
-			HttpServletResponse resp = (HttpServletResponse) response;
-			HttpSession ses = reqt.getSession(false);
-
-			String reqURI = reqt.getRequestURI();
-			if (reqURI.indexOf("/login.jsf") >= 0 || (ses != null && ses.getAttribute("username") != null)
-			    || reqURI.contains("javax.faces.resource"))
-				filterChain.doFilter(request, response);
-			else
-				resp.sendRedirect(reqt.getContextPath() + "/login.jsf");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+//		try {
+//			HttpServletRequest reqt = (HttpServletRequest) request;
+//			HttpServletResponse resp = (HttpServletResponse) response;
+//			HttpSession ses = reqt.getSession(false);
+//
+//			String reqURI = reqt.getRequestURI();
+//			if (reqURI.indexOf("/login.jsf") >= 0 || (ses != null && ses.getAttribute("username") != null)
+//			    || reqURI.contains("javax.faces.resource"))
+//				filterChain.doFilter(request, response);
+//			else
+//				resp.sendRedirect(reqt.getContextPath() + "/login.jsf");
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+		HttpServletRequest reqt = (HttpServletRequest) request;
+		HttpSession ses = reqt.getSession(true);
+		
+		filterChain.doFilter(request, response);
 	}
 
 	@Override

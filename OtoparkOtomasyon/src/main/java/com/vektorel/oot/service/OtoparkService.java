@@ -7,6 +7,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.vektorel.oot.entity.Otopark;
 import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.HRException;
@@ -17,11 +20,10 @@ import com.vektorel.oot.util.PagingResult;
  * @author temelt
  * 
  */
-@ManagedBean(name = "otoparkService")
-@ApplicationScoped
+@Service
 public class OtoparkService {
 
-	@ManagedProperty(value = "#{baseDao}")
+	@Autowired
 	private BaseDao baseDao;
 
 	public boolean save(Otopark entity) throws Exception {

@@ -3,22 +3,16 @@ package com.vektorel.oot.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.OtoparkUyelik;
 import com.vektorel.oot.util.BaseDao;
-import com.vektorel.oot.util.HRException;
-import com.vektorel.oot.util.OrderUtil;
 import com.vektorel.oot.util.PagingResult;
 
 /**
@@ -26,12 +20,11 @@ import com.vektorel.oot.util.PagingResult;
  * @author ugur
  * 
  */
-@ManagedBean(name = "uyeService")
-@ApplicationScoped
+@Service
 public class OtoparkUyelikService {
 
-	@ManagedProperty(value = "#{baseDao}")
-	private BaseDao baseDao;
+	@Autowired
+	private transient BaseDao baseDao;
 
 	public boolean save(OtoparkUyelik entity) throws Exception {
 //		if (entity.getArac() == null) {
@@ -76,7 +69,7 @@ public class OtoparkUyelikService {
 
 	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
 		PagingResult result = new PagingResult();
-		Session session = baseDao.getOpenSession();
+		Session session = baseDao.getCurrentSession();
 		Criteria criteria = session.createCriteria(OtoparkUyelik.class);
 		
 		if(filters.containsKey("arac")){

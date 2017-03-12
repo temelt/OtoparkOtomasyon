@@ -2,24 +2,22 @@ package com.vektorel.oot.service;
 
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vektorel.oot.entity.Il;
 import com.vektorel.oot.entity.Ilce;
 import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.YerlesimTip;
 
-@ManagedBean(name = "yerlesimService")
-@ApplicationScoped
+@Service
 public class YerlesimService {
 
-	@ManagedProperty(value = "#{baseDao}")
+	@Autowired
 	private transient BaseDao baseDao;
 
 	@SuppressWarnings({"rawtypes" })
@@ -56,13 +54,13 @@ public class YerlesimService {
 	 * @param id
 	 * @return
 	 */
+	@Transactional
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<Ilce> getAllByIlId(Long id) {
-		Session session = baseDao.getOpenSession();
+		Session session = baseDao.getCurrentSession();
 		Criteria criteria =session.createCriteria(Ilce.class);
 		criteria.add(Restrictions.eq("il.id", id));
 		List lst = criteria.list();
-		session.close();
 		return lst;
 		
 	}

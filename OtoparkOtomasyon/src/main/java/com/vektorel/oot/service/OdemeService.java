@@ -7,6 +7,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.vektorel.oot.entity.Odeme;
 import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.PagingResult;
@@ -17,12 +20,11 @@ import com.vektorel.oot.util.PagingResult;
  * 
  */
 
-@ManagedBean(name = "odemeService")
-@ApplicationScoped
+@Service
 public class OdemeService {
 	
-	@ManagedProperty(value = "#{baseDao}")
-	private BaseDao baseDao;
+	@Autowired
+	private transient BaseDao baseDao;
 	
 	public boolean save(Odeme entity) throws Exception {
 		baseDao.save(entity);

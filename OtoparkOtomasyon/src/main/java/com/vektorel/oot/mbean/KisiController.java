@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.service.KisiService;
@@ -22,9 +22,9 @@ import com.vektorel.oot.util.PagingResult;
  * @author temelt
  *
  */
-@ManagedBean(name="kisiBean")
-@ViewScoped
-public class KisiMBean implements Serializable{
+@Controller("kisiBean")
+@Scope("session")
+public class KisiController implements Serializable{
 
 	/**
 	 * 
@@ -34,14 +34,15 @@ public class KisiMBean implements Serializable{
 	/**
 	 * Properties
 	 */
-	@ManagedProperty(value="#{kisiService}")
+	@Autowired
 	private transient KisiService kisiService;
 	
-	@ManagedProperty(value="#{messageBean}")
-	private MessageMBean messageMBean;
+	@Autowired
+	private transient MessageMBean messageMBean;
 	
-	@ManagedProperty(value="#{yerlesimMBean}")
-	private YerlesimMBean yerlesimMBean;
+	@Autowired
+	private transient YerlesimMBean yerlesimMBean;
+	
 	
 	private Kisi kisi;
 	private LazyDataModel<Kisi> lazy;
@@ -114,6 +115,8 @@ public class KisiMBean implements Serializable{
 	 * Getter/Setter 
 	 */
 	public Kisi getKisi() {
+		if(kisi==null)
+			kisi=new Kisi();
 		return kisi;
 	}
 	
@@ -125,14 +128,4 @@ public class KisiMBean implements Serializable{
 		return lazy;
 	}
 	
-	public void setKisiService(KisiService kisiService) {
-		this.kisiService = kisiService;
-	}
-	
-	public void setMessageMBean(MessageMBean messageMBean) {
-		this.messageMBean = messageMBean;
-	}
-	public void setYerlesimMBean(YerlesimMBean yerlesimMBean) {
-		this.yerlesimMBean = yerlesimMBean;
-	}
 }

@@ -43,7 +43,7 @@ public class OtoparkBolumMBean implements Serializable {
 		yeni();
 		 listele();
 		otoparkBolumComboDoldur();
-		otoparkBolumListe = otoparkBolumService.getMarkaList(otoparkBolum);
+//		otoparkBolumListe = otoparkBolumService.getMarkaList(otoparkBolum);
 		System.out.println("---");
 	}
 
@@ -93,11 +93,11 @@ public class OtoparkBolumMBean implements Serializable {
 
 	private void otoparkBolumComboDoldur() {
 
-		List<OtoparkBolum> otoparkBolumListe = otoparkBolumService.getMarkaList(otoparkBolum);
-		for (OtoparkBolum bolum : otoparkBolumListe) {
-			liste.add(bolum.getTanim());
-
-		}
+//		List<OtoparkBolum> otoparkBolumListe = otoparkBolumService.getMarkaList(otoparkBolum);
+//		for (OtoparkBolum bolum : otoparkBolumListe) {
+//			liste.add(bolum.getTanim());
+//
+//		}
 	}
 
 	public OtoparkBolumService getOtoparkBolumService() {

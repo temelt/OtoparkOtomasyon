@@ -3,9 +3,8 @@ package com.vektorel.oot.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.vektorel.oot.entity.OtoparkBolum;
 import com.vektorel.oot.util.BaseDao;
@@ -18,12 +17,11 @@ import com.vektorel.oot.util.PagingResult;
  * 
  */
 
-@ManagedBean(name = "otoparkBolumService")
-@ApplicationScoped
+@Service
 public class OtoparkBolumService {
 
-	@ManagedProperty(value = "#{baseDao}")
-	BaseDao baseDao;
+	@Autowired
+	private transient BaseDao baseDao;
 
 	public boolean save(OtoparkBolum entity) throws Exception {
 
@@ -72,11 +70,7 @@ public class OtoparkBolumService {
 		return (OtoparkBolum) baseDao.getById(id, OtoparkBolum.class);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<OtoparkBolum> getMarkaList(OtoparkBolum otoparkBolum){
-		
-		return baseDao.getMarka(OtoparkBolum.class); 
-	}
+
 	
 	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
 		return baseDao.getByPaging(OtoparkBolum.class, first, pageSize, filters);

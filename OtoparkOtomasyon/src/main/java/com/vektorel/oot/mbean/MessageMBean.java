@@ -3,17 +3,16 @@ package com.vektorel.oot.mbean;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+
+import org.springframework.stereotype.Controller;
 
 /**
  * 
  * @author temelt
  *
  */
-@ManagedBean(name = "messageBean")
-@ApplicationScoped
+@Controller("messageBean")
 public class MessageMBean implements Serializable {
 
 	/**

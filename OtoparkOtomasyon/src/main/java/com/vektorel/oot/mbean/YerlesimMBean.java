@@ -4,17 +4,18 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Il;
 import com.vektorel.oot.entity.Ilce;
 import com.vektorel.oot.service.YerlesimService;
 import com.vektorel.oot.util.YerlesimTip;
 
-@ManagedBean(name="yerlesimMBean")
-@ApplicationScoped
+@Controller("yerlesimMBean")
+@Scope("session")
 public class YerlesimMBean implements Serializable{
 
 	/**
@@ -22,7 +23,7 @@ public class YerlesimMBean implements Serializable{
 	 */
 	private static final long serialVersionUID = -5719769023659204319L;
 
-	@ManagedProperty(value="#{yerlesimService}")
+	@Autowired
 	private transient YerlesimService yerlesimService;
 	
 	private List<Il> ilListesi;
@@ -43,10 +44,6 @@ public class YerlesimMBean implements Serializable{
 		return ilceListesi;
 	}
 	
-	public void setYerlesimService(YerlesimService yerlesimService) {
-		this.yerlesimService = yerlesimService;
-	}
-
 	public void ilChange(Long id) {
 		ilceListesi=yerlesimService.getAllByIlId(id);
 	}

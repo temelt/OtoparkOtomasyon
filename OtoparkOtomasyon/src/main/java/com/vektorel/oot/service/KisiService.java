@@ -3,16 +3,15 @@ package com.vektorel.oot.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.util.BaseDao;
@@ -25,11 +24,10 @@ import com.vektorel.oot.util.PagingResult;
  * @author temelt
  * 
  */
-@ManagedBean(name = "kisiService")
-@ApplicationScoped
+@Service
 public class KisiService {
 
-	@ManagedProperty(value = "#{baseDao}")
+	@Autowired
 	private transient BaseDao baseDao;
 
 	public boolean save(Kisi entity) throws Exception {
@@ -73,9 +71,10 @@ public class KisiService {
 		return (Kisi) baseDao.getById(id, Kisi.class);
 	}
 
+	@Transactional
 	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters, OrderUtil order) {
 		PagingResult result = new PagingResult();
-		Session session = baseDao.getOpenSession();
+		Session session = baseDao.getCurrentSession();
 		Criteria criteria = session.createCriteria(Kisi.class);
 		
 		if(filters.containsKey("ad")){
@@ -119,7 +118,6 @@ public class KisiService {
 		
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		result.setList(criteria.list());
-		session.close();
 		return result;
 	}
 	
@@ -127,9 +125,10 @@ public class KisiService {
 		this.baseDao = baseDao;
 	}
 
+	@Transactional
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<Kisi> acomp(String query) {
-		Session session = baseDao.getOpenSession();
+		Session session = baseDao.getCurrentSession();
 		Criteria criteria = session.createCriteria(Kisi.class);
 		criteria.add(Restrictions.or(
 				Restrictions.ilike("ad", query,MatchMode.ANYWHERE), 
@@ -138,7 +137,6 @@ public class KisiService {
 		
 		criteria.setMaxResults(15);
 		List lst = criteria.list();
-		session.close();
 		return lst;
 	}
 }

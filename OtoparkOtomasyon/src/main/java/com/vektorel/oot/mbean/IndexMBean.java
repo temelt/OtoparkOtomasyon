@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
@@ -15,6 +12,9 @@ import org.primefaces.model.chart.BarChartSeries;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.service.RaporService;
 import com.vektorel.oot.util.CinsiyetYilDagilimi;
@@ -24,8 +24,8 @@ import com.vektorel.oot.util.CinsiyetYilDagilimi;
  * @author temelt
  * 
  */
-@ManagedBean(name = "indexBean")
-@ViewScoped
+@Controller("indexBean")
+@Scope("session")
 public class IndexMBean implements Serializable {
 
 	/**
@@ -36,10 +36,10 @@ public class IndexMBean implements Serializable {
 	/**
 	 * Properties
 	 */
-	@ManagedProperty(value = "#{messageBean}")
+	@Autowired
 	private MessageMBean messageMBean;
 
-	@ManagedProperty(value = "#{raporService}")
+	@Autowired
 	private transient RaporService raporService;
 
 	private String aktifKullanici;
