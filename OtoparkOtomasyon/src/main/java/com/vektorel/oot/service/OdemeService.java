@@ -7,11 +7,20 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.Odeme;
 import com.vektorel.oot.util.BaseDao;
+import com.vektorel.oot.util.OrderUtil;
 import com.vektorel.oot.util.PagingResult;
 
 /**
@@ -55,12 +64,40 @@ public class OdemeService {
 		return (Odeme) baseDao.getById(id, Odeme.class);
 	}
 
-	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
-		return baseDao.getByPaging(Odeme.class, first, pageSize, filters);
-	}
-	
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
+	@Transactional
+	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters, OrderUtil order) {
+		PagingResult result = new PagingResult();
+		Session session = baseDao.getCurrentSession();
+		Criteria criteria = session.createCriteria(Odeme.class);
+		
+//		if(filters.containsKey("soyad")){
+//			criteria.add(Restrictions.ilike("soyad", filters.get("soyad").toString(),MatchMode.ANYWHERE));
+//		}
+		
+		
+		if(filters.containsKey("aracGiris.arac.plaka")){
+			Criteria crt = criteria.createAlias("aracGiris.arac", "arcAls");
+			crt.add(Restrictions.ilike("arcAls.plaka", filters.get("aracGiris.arac.plaka").toString(),MatchMode.ANYWHERE));
+		}
+		
+		criteria.setProjection(Projections.rowCount());
+		result.setRowCount((Long) criteria.uniqueResult());
+				
+		criteria.setProjection(null);
+		criteria.setFirstResult(first);
+		criteria.setMaxResults(pageSize);
+		
+		if(order.getField()!=null){
+			if(order.getOrderType()==OrderUtil.OrderType.ASC)
+				criteria.addOrder(Order.asc(order.getField()));
+			else
+				criteria.addOrder(Order.desc(order.getField()));
+		}
+		
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		result.setList(criteria.list());
+		return result;
+//		return baseDao.getByPaging(Odeme.class, first, pageSize, filters);
 	}
 
 }

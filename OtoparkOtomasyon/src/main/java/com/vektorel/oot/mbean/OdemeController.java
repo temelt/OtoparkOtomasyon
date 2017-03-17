@@ -11,29 +11,33 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.Odeme;
 import com.vektorel.oot.service.KisiService;
 import com.vektorel.oot.service.OdemeService;
+import com.vektorel.oot.util.OrderUtil;
 import com.vektorel.oot.util.PagingResult;
 
-@ManagedBean(name="odemeBean")
-@ViewScoped
-public class OdemeMBean implements Serializable {
+@Controller("odemeBean")
+@Scope("session")
+public class OdemeController implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4801225975212400121L;
 
-	@ManagedProperty(value="#{odemeService}")
+	@Autowired
 	private transient OdemeService odemeService;
 	
-	@ManagedProperty(value="#{kisiService}")
+	@Autowired
 	private transient KisiService kisiService;
 	
-	@ManagedProperty(value="#{messageBean}")
+	@Autowired
 	private MessageMBean messageMBean;
 	
 	private Odeme odeme;
@@ -94,7 +98,7 @@ public class OdemeMBean implements Serializable {
 			@Override
 			public List<Odeme> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
 				
-				PagingResult pagingResult = odemeService.getByPaging(first, pageSize, filters);
+				PagingResult pagingResult = odemeService.getByPaging(first, pageSize, filters, new OrderUtil(sortField, sortOrder));
 				this.setRowCount(pagingResult.getRowCount().intValue());
 				return pagingResult.getList();
 			}
@@ -117,16 +121,5 @@ public class OdemeMBean implements Serializable {
 	public LazyDataModel<Odeme> getLazy() {
 		return lazy;
 	}
-	
-	public void setOdemeService(OdemeService odemeService) {
-		this.odemeService = odemeService;
-	}
-	
-	public void setMessageMBean(MessageMBean messageMBean) {
-		this.messageMBean = messageMBean;
-	}
-	
-	public void setKisiService(KisiService kisiService) {
-		this.kisiService = kisiService;
-	}
+
 }
