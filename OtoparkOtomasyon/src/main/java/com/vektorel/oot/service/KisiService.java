@@ -10,6 +10,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ import com.vektorel.oot.util.PagingResult;
  * 
  */
 @Service
+//@EnableAsync
 public class KisiService {
 
 	@Autowired
@@ -41,6 +43,14 @@ public class KisiService {
 		return true;
 	}
 
+	@Async
+	public void asyncMetod() {
+		for (int i = 0; i < 1000000; i++) {
+			System.out.println("Mesaj"+i);
+		}
+		
+	}
+	
 	public boolean update(Kisi entity) throws Exception {
 		if (entity.getAd() == null || entity.getAd().trim().equals("")) {
 			throw new HRException("Kullanýcý Adý Boþ Olmamalýdýr");

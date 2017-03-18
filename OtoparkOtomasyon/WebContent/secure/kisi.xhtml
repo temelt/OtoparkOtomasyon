@@ -73,6 +73,7 @@
 					<f:facet name="footer">
 						<p:commandButton value="Yeni" actionListener="#{kisiBean.yeni}"
 					        update=":frmKisi:dlgKisi" oncomplete="PF('dlgKisi').show()"></p:commandButton>
+					        <p:commandButton value="Sync" actionListener="#{kisiBean.senkronizasyon}" ></p:commandButton>
 						<p:commandButton onclick="PF('tblKisi').clearFilters()" value="Filtreleri Temizle"/>
 					</f:facet>
 				</p:dataTable>

@@ -20,9 +20,11 @@
 
 	<context:component-scan base-package="com.vektorel" />
 
-	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
-	<bean id="dataSource" class="org.postgresql.jdbc3.Jdbc3PoolingDataSource" destroy-method="close">
+	<bean id="dataSource" class="org.postgresql.jdbc3.Jdbc3PoolingDataSource"
+		destroy-method="close">
 		<property name="serverName" value="localhost" />
 		<property name="portNumber" value="5432" />
 		<property name="databaseName" value="otopark" />
@@ -32,7 +34,8 @@
 		<property name="maxConnections" value="50" />
 	</bean>
 
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan" value="com.vektorel" />
 		<property name="hibernateProperties">
@@ -45,11 +48,34 @@
 		</property>
 	</bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
+	<bean id="ayarlar" class="com.vektorel.oot.util.Ayarlar">
+		<property name="uygulamaAdi" value="Otopark Otomasyon Uygulaması" />
+		<property name="uygulamaAdresi" value="www.otoparkci.com" />
+		<property name="gelistiren" value="Vektörel Bilişim" />
+		<property name="versiyon" value="1.2.1" />
 	</bean>
 
+	<bean id="testAyar" class="com.vektorel.oot.util.TestAyar">
+		<constructor-arg name="testAyar" value="Test Ayar da Set Edildi" />
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="view">
+					<bean class="com.vektorel.oot.util.ViewScope" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<task:annotation-driven />
 
 </beans>

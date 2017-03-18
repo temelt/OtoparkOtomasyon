@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.service.KisiService;
+import com.vektorel.oot.util.Ayarlar;
 import com.vektorel.oot.util.OrderUtil;
 import com.vektorel.oot.util.PagingResult;
 
@@ -23,7 +24,7 @@ import com.vektorel.oot.util.PagingResult;
  *
  */
 @Controller("kisiBean")
-@Scope("session")
+@Scope("view")
 public class KisiController implements Serializable{
 
 	/**
@@ -43,6 +44,8 @@ public class KisiController implements Serializable{
 	@Autowired
 	private transient YerlesimMBean yerlesimMBean;
 	
+	@Autowired
+	private Ayarlar ayarlar;
 	
 	private Kisi kisi;
 	private LazyDataModel<Kisi> lazy;
@@ -55,6 +58,7 @@ public class KisiController implements Serializable{
 	public void init() {
 		yeni();
 		listele();
+		System.out.println(" GELISTIREN: "+ ayarlar.getGelistiren() + " UYGULAMA : " + ayarlar.getUygulamaAdi() +" VERSIYON :" + ayarlar.getVersiyon());
 	}
 	
 	public void kaydet() {
@@ -71,6 +75,11 @@ public class KisiController implements Serializable{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public void senkronizasyon() {
+		kisiService.asyncMetod();
 	}
 	
 	public void seciliKayit(Long id) {
