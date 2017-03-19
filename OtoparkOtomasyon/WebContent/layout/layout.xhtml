@@ -17,10 +17,9 @@
         <b:navBar brand="Otopark Bilgi Sistemi" brandHref="#" inverse="true" fixed="top" fluid="true">
             
             <b:navbarLinks pull="right">
-                <b:navLink value="Dashboard" href="#"></b:navLink>
-                <b:navLink value="Settings" href="#"></b:navLink>
-                <b:navLink value="#{username}" href="#"></b:navLink>
-                <b:navLink href="/OtoparkOtomasyon/secure/logout.jsf" value="Çıkış" />
+                <b:navLink value="Dashboard" href="/OtoparkOtomasyon/secure/dashboard.xhtml"></b:navLink>
+                <b:navLink value="#{sessionController.kullanici.adSoyad}" href="#"></b:navLink>
+                <b:navLink href="/OtoparkOtomasyon/j_spring_security_logout" value="Çıkış" />
             </b:navbarLinks>
         </b:navBar>
         <b:container fluid="true">
@@ -28,13 +27,13 @@
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
                     <b:listLinks>
                         <b:navLink header="Menü" />
-                        <b:navLink href="/OtoparkOtomasyon/secure/dashboard.jsf" value="Ana Sayfa" />
-                        <b:navLink href="/OtoparkOtomasyon/secure/kisi.jsf" value="Kişi Tanımları" />
-                        <b:navLink href="/OtoparkOtomasyon/secure/otopark.jsf" value="Otopark Tanımları" />
-                        <b:navLink href="/OtoparkOtomasyon/secure/mmodel.jsf" value="Marka Model Tanımları" />
-                        <b:navLink href="/OtoparkOtomasyon/secure/otoparkUyelik.jsf" value="Otopark Üyelik" />
-                        <b:navLink href="/OtoparkOtomasyon/secure/odeme.jsf" value="Ödeme" />
-                        <b:navLink href="/OtoparkOtomasyon/secure/arac.jsf" value="Araç Tanımları" />
+                        <b:navLink  href="/OtoparkOtomasyon/secure/dashboard.xhtml" value="Ana Sayfa" />
+                        <b:navLink rendered="#{sessionController.hasAuth('YT0045')}" href="/OtoparkOtomasyon/secure/kisi.xhtml" value="Kişi Tanımları" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/otopark.xhtml" value="Otopark Tanımları" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/mmodel.xhtml" value="Marka Model Tanımları" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/otoparkUyelik.xhtml" value="Otopark Üyelik" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/odeme.xhtml" value="Ödeme" />
+                        <b:navLink href="/OtoparkOtomasyon/secure/arac.xhtml" value="Araç Tanımları" />
                     </b:listLinks>
                 </b:column>
                 

@@ -30,19 +30,24 @@ public class RaporService {
 	@SuppressWarnings("rawtypes")
 	@Transactional
 	public List<CinsiyetYilDagilimi> getCinsiyetYilDagilimiListesi() {
-		Session session = baseDao.getCurrentSession();
-		SQLQuery query = session.createSQLQuery(CINSIYET_YIL_DAGILIMI);
-		List list = query.list();
-		List<CinsiyetYilDagilimi> retList=new ArrayList<>();
-		for (int i = 0; i < list.size(); i++) {
-			Object[] el  = (Object[]) list.get(i);
-			CinsiyetYilDagilimi d=new CinsiyetYilDagilimi();
-			d.setYil(Integer.parseInt(el[0].toString()));
-			d.setCinsiyet(Integer.parseInt(el[1].toString()));
-			d.setSayisi(Integer.parseInt(el[2].toString()));
-			retList.add(d);
-		}		
-		return retList;
+		try {
+			Session session = baseDao.getCurrentSession();
+			SQLQuery query = session.createSQLQuery(CINSIYET_YIL_DAGILIMI);
+			List list = query.list();
+			List<CinsiyetYilDagilimi> retList=new ArrayList<>();
+			for (int i = 0; i < list.size(); i++) {
+				Object[] el  = (Object[]) list.get(i);
+				CinsiyetYilDagilimi d=new CinsiyetYilDagilimi();
+				d.setYil(Integer.parseInt(el[0].toString()));
+				d.setCinsiyet(Integer.parseInt(el[1].toString()));
+				d.setSayisi(Integer.parseInt(el[2].toString()));
+				retList.add(d);
+			}	
+			return retList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}			
+		return null;
 	}
 	
 	

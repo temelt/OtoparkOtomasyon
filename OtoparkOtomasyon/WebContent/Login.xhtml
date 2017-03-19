@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
@@ -17,21 +18,20 @@
         </style>
     </h:head>
     <h:body style="padding-top: 60px; background-color: #add;">
-        <b:container>
-            <h:form styleClass="form-signin" prependId="false">
+        <b:container prependId="false">
+            <h:form styleClass="form-signin" id="loginForm" role="form" prependId="false" onsubmit="document.#{p:component('loginForm')}.action='j_spring_security_check';">
                 <h2 class="form-signin-heading">Giriş Yapınız</h2>
-                <b:inputText id="uname" value="#{loginBean.uname}" placeholder="Username " >
+                <p:inputText prependId="false" id="j_username" placeholder="Username " >
                     <f:facet name="prepend">
                         <b:icon name="user" />
                     </f:facet>
-                </b:inputText>
-                <b:inputText id="password" placeholder="Password" value="#{loginBean.pass}" type="password">
+                </p:inputText>
+                <p:inputText prependId="false" id="j_password" placeholder="Password" type="password">
                     <f:facet name="prepend">
                         <b:iconAwesome name="key" />
                     </f:facet>
-                </b:inputText>
-                <b:selectBooleanCheckbox value="true" caption="remember me"/>
-                <b:commandButton look="primary btn-block" actionListener="#{loginBean.login}" value="Giriş" icon="log-in" size="lg"/>
+                </p:inputText>
+                <p:commandButton prependId="false" ajax="false" value="Giriş" />
             </h:form>
         </b:container>
     </h:body>

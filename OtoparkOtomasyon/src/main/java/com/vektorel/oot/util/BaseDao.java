@@ -93,6 +93,7 @@ public class BaseDao {
 		return criteria.uniqueResult();
 	}
 	
+	@Transactional
 	public Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}

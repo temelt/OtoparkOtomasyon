@@ -24,8 +24,7 @@
 
 <!-- 	<bean class="com.vektorel.oot.util.AspectAuditer" /> -->
 
-	<bean id="dataSource" class="org.postgresql.jdbc3.Jdbc3PoolingDataSource"
-		destroy-method="close">
+	<bean id="dataSource" class="org.postgresql.jdbc3.Jdbc3PoolingDataSource">
 		<property name="serverName" value="localhost" />
 		<property name="portNumber" value="5432" />
 		<property name="databaseName" value="otopark" />

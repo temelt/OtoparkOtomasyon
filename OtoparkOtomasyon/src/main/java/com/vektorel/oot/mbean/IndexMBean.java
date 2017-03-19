@@ -25,7 +25,7 @@ import com.vektorel.oot.util.CinsiyetYilDagilimi;
  * 
  */
 @Controller("indexBean")
-@Scope("session")
+@Scope("view")
 public class IndexMBean implements Serializable {
 
 	/**
@@ -42,23 +42,17 @@ public class IndexMBean implements Serializable {
 	@Autowired
 	private transient RaporService raporService;
 
-	private String aktifKullanici;
 	private LineChartModel areaModel;
 	private BarChartModel barModel;
 
 	@PostConstruct
 	private void init() {
-		aktifKullanici = "Admin Kullanýcý";
 		messageMBean.mesajUyariGoster("", "HOÞGELDÝNÝZ");
 		createAreaModel();
 	}
 
 	public void setMessageMBean(MessageMBean messageMBean) {
 		this.messageMBean = messageMBean;
-	}
-
-	public String getAktifKullanici() {
-		return aktifKullanici;
 	}
 
 	public LineChartModel getAreaModel() {
@@ -82,13 +76,15 @@ public class IndexMBean implements Serializable {
 		BarChartSeries kadinBar = new BarChartSeries();
 		kadinBar.setLabel("KADIN");
 
-		for (CinsiyetYilDagilimi kayit : liste) {
-			if (kayit.getCinsiyet() == 0) {
-				erkek.set(kayit.getYil().toString(), kayit.getSayisi());
-				erkekBar.set(kayit.getYil().toString(), kayit.getSayisi());
-			} else if (kayit.getCinsiyet() == 1) {
-				kadin.set(kayit.getYil().toString(), kayit.getSayisi());
-				kadinBar.set(kayit.getYil().toString(), kayit.getSayisi());
+		if(liste!=null){
+			for (CinsiyetYilDagilimi kayit : liste) {
+				if (kayit.getCinsiyet() == 0) {
+					erkek.set(kayit.getYil().toString(), kayit.getSayisi());
+					erkekBar.set(kayit.getYil().toString(), kayit.getSayisi());
+				} else if (kayit.getCinsiyet() == 1) {
+					kadin.set(kayit.getYil().toString(), kayit.getSayisi());
+					kadinBar.set(kayit.getYil().toString(), kayit.getSayisi());
+				}
 			}
 		}
 

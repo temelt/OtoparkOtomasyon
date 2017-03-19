@@ -26,6 +26,7 @@ public class Kullanici extends EBase {
 	String uname;
 	String pwd;
 	Personel personel;
+	String adSoyad;
 
 	@Column(unique=true)
 	public String getUname() {
@@ -44,6 +45,15 @@ public class Kullanici extends EBase {
 		this.pwd = pwd;
 	}
 
+	@Column(name="ad_soyad")
+	public String getAdSoyad() {
+		return adSoyad;
+	}
+	
+	public void setAdSoyad(String adSoyad) {
+		this.adSoyad = adSoyad;
+	}
+	
     @JoinColumn(name = "personel_id")
     @ManyToOne(optional = true,fetch = FetchType.LAZY)
 	public Personel getPersonel() {

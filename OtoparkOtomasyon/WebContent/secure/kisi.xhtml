@@ -7,10 +7,10 @@
 	xmlns:p="http://primefaces.org/ui" 
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<ui:composition template="/layout/layout.xhtml">
-		<ui:define name="content">
+	<ui:composition template="/layout/layout.xhtml" >
+		<ui:define name="content" >
 			<h2>Kişi İşlemleri</h2>
-			<h:form id="frmKisi">
+			<h:form id="frmKisi" rendered="#{sessionController.hasAuth('YT0045')}">
 				<p:growl id="growl" life="6000" autoUpdate="true" showDetail="true" />
 
 				<p:dataTable id="tblKisi"  widgetVar="tblKisi" var="k" lazy="true"  reflow="true"
