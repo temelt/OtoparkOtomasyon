@@ -3,12 +3,9 @@ package com.vektorel.oot.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vektorel.oot.entity.Otopark;
 import com.vektorel.oot.util.BaseDao;
@@ -52,20 +49,20 @@ public class OtoparkService {
 		return true;
 	}
 
+	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<Otopark> getAll(String query) {
 		return baseDao.getAll(Otopark.class);
 	}
 
+	@Transactional
 	public Otopark getById(Long id) {
 		return (Otopark) baseDao.getById(id, Otopark.class);
 	}
 
+	@Transactional
 	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
 		return baseDao.getByPaging(Otopark.class, first, pageSize, filters);
 	}
 	
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 }

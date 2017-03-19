@@ -11,6 +11,9 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.Otopark;
@@ -23,8 +26,8 @@ import com.vektorel.oot.util.PagingResult;
  * @author temelt
  *
  */
-@ManagedBean(name="otoparkBean")
-@ViewScoped
+@Controller("otoparkBean")
+@Scope("view")
 public class OtoparkMBean implements Serializable{
 
 	/**
@@ -35,13 +38,13 @@ public class OtoparkMBean implements Serializable{
 	/**
 	 * Properties
 	 */
-	@ManagedProperty(value="#{otoparkService}")
+	@Autowired
 	private transient OtoparkService otoparkService;
 	
-	@ManagedProperty(value="#{messageBean}")
+	@Autowired
 	private MessageMBean messageMBean;
 	
-	@ManagedProperty(value="#{kisiService}")
+	@Autowired
 	private transient KisiService kisiService;
 	
 	private Otopark otopark;

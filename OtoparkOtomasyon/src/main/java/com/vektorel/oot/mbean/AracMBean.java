@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Arac;
 import com.vektorel.oot.entity.MarkaModel;
@@ -23,8 +23,8 @@ import com.vektorel.oot.util.PagingResult;
  * @author temelt
  *
  */
-@ManagedBean(name="aracBean")
-@ViewScoped
+@Controller("aracBean")
+@Scope("view")
 public class AracMBean implements Serializable{
 
 	/**
@@ -35,14 +35,14 @@ public class AracMBean implements Serializable{
 	/**
 	 * Properties
 	 */
-	@ManagedProperty(value="#{aracService}")
+	@Autowired
 	private transient AracService aracService;
 	
-	@ManagedProperty(value="#{messageBean}")
+	@Autowired
 	private MessageMBean messageMBean;
 	
-	@ManagedProperty(value="#{markaModelService}")
-	private MarkaModelService markaModelService;
+	@Autowired
+	private transient MarkaModelService markaModelService;
 	
 	
 	

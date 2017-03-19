@@ -26,7 +26,6 @@ import com.vektorel.oot.util.PagingResult;
  * 
  */
 @Service
-//@EnableAsync
 public class KisiService {
 
 	@Autowired
@@ -46,11 +45,11 @@ public class KisiService {
 	@Async
 	public void asyncMetod() {
 		for (int i = 0; i < 1000000; i++) {
-			System.out.println("Mesaj"+i);
+			System.out.println("Mesaj" + i);
 		}
-		
+
 	}
-	
+
 	public boolean update(Kisi entity) throws Exception {
 		if (entity.getAd() == null || entity.getAd().trim().equals("")) {
 			throw new HRException("Kullanýcý Adý Boþ Olmamalýdýr");
@@ -82,55 +81,60 @@ public class KisiService {
 	}
 
 	@Transactional
-	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters, OrderUtil order) {
+	public PagingResult getByPaging(int first, int pageSize,
+			Map<String, Object> filters, OrderUtil order) {
 		PagingResult result = new PagingResult();
 		Session session = baseDao.getCurrentSession();
 		Criteria criteria = session.createCriteria(Kisi.class);
-		
-		if(filters.containsKey("ad")){
-			criteria.add(Restrictions.ilike("ad", filters.get("ad").toString(),MatchMode.ANYWHERE));
+
+		if (filters.containsKey("ad")) {
+			criteria.add(Restrictions.ilike("ad", filters.get("ad").toString(),
+					MatchMode.ANYWHERE));
 		}
-		
-		if(filters.containsKey("anaAdi")){
-			criteria.add(Restrictions.ilike("anaAdi", filters.get("anaAdi").toString(),MatchMode.ANYWHERE));
+
+		if (filters.containsKey("anaAdi")) {
+			criteria.add(Restrictions.ilike("anaAdi", filters.get("anaAdi")
+					.toString(), MatchMode.ANYWHERE));
 		}
-		
-		if(filters.containsKey("soyad")){
-			criteria.add(Restrictions.ilike("soyad", filters.get("soyad").toString(),MatchMode.ANYWHERE));
+
+		if (filters.containsKey("soyad")) {
+			criteria.add(Restrictions.ilike("soyad", filters.get("soyad")
+					.toString(), MatchMode.ANYWHERE));
 		}
-		
-		if(filters.containsKey("il.ad")){
+
+		if (filters.containsKey("il.ad")) {
 			Criteria crt = criteria.createAlias("il", "ilAls");
-			crt.add(Restrictions.ilike("ilAls.ad", filters.get("il.ad").toString(),MatchMode.ANYWHERE));
+			crt.add(Restrictions.ilike("ilAls.ad", filters.get("il.ad")
+					.toString(), MatchMode.ANYWHERE));
 		}
-		
-//		Ýlçesinin ilinin adýný sorgulamak için
-//		if(filters.containsKey("il.ad")){
-//			Criteria crt = criteria.createAlias("ilce", "alias");
-//			Criteria crt2 = criteria.createAlias("alias.il", "ilt");
-//			crt2.add(Restrictions.ilike("ilt.ad", filters.get("il.ad").toString(),MatchMode.ANYWHERE));
-//		}
-		
-		
+
+		// Ýlçesinin ilinin adýný sorgulamak için
+		// if(filters.containsKey("il.ad")){
+		// Criteria crt = criteria.createAlias("ilce", "alias");
+		// Criteria crt2 = criteria.createAlias("alias.il", "ilt");
+		// crt2.add(Restrictions.ilike("ilt.ad",
+		// filters.get("il.ad").toString(),MatchMode.ANYWHERE));
+		// }
+
 		criteria.setProjection(Projections.rowCount());
 		result.setRowCount((Long) criteria.uniqueResult());
-				
+
 		criteria.setProjection(null);
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(pageSize);
-		
-		if(order.getField()!=null){
-			if(order.getOrderType()==OrderUtil.OrderType.ASC)
+
+		if (order.getField() != null) {
+			if (order.getOrderType() == OrderUtil.OrderType.ASC)
 				criteria.addOrder(Order.asc(order.getField()));
 			else
 				criteria.addOrder(Order.desc(order.getField()));
 		}
-		
+
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		result.setList(criteria.list());
 		return result;
 	}
-	
+
 	public void setBaseDao(BaseDao baseDao) {
 		this.baseDao = baseDao;
 	}
@@ -141,10 +145,9 @@ public class KisiService {
 		Session session = baseDao.getCurrentSession();
 		Criteria criteria = session.createCriteria(Kisi.class);
 		criteria.add(Restrictions.or(
-				Restrictions.ilike("ad", query,MatchMode.ANYWHERE), 
-				Restrictions.ilike("soyad", query ,MatchMode.ANYWHERE)
-				));
-		
+				Restrictions.ilike("ad", query, MatchMode.ANYWHERE),
+				Restrictions.ilike("soyad", query, MatchMode.ANYWHERE)));
+
 		criteria.setMaxResults(15);
 		List lst = criteria.list();
 		return lst;

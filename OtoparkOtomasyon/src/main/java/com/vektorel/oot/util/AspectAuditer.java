@@ -1,5 +1,6 @@
 package com.vektorel.oot.util;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.aspectj.lang.JoinPoint;
@@ -12,7 +13,12 @@ import com.vektorel.oot.entity.EBase;
 
 @Service
 @Aspect
-public class AspectAuditer {
+public class AspectAuditer implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2922129101596326455L;
 
 	@Before("execution(* com.vektorel.oot.util.BaseDao.save(..))")
 	public void beforeSaving(JoinPoint joinPoint) {
@@ -38,7 +44,6 @@ public class AspectAuditer {
 			b.setGuncelleyen("TT");
 		}
 	}
-	
 	
 	public void afterUpdating() {
 

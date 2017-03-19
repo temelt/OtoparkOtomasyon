@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.OtoparkBolum;
 import com.vektorel.oot.service.OtoparkBolumService;
 import com.vektorel.oot.util.PagingResult;
 
-@ManagedBean(name = "otoparkBolumBean")
-@ViewScoped
+@Controller("otoparkBolumBean")
+@Scope("view")
 public class OtoparkBolumMBean implements Serializable {
 
 	/**
@@ -26,10 +26,10 @@ public class OtoparkBolumMBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 131393325795319163L;
 
-	@ManagedProperty(value = "#{otoparkBolumService}")
-	OtoparkBolumService otoparkBolumService;
+	@Autowired
+	private transient OtoparkBolumService otoparkBolumService;
 
-	@ManagedProperty(value = "#{messageBean}")
+	@Autowired
 	private MessageMBean messageMBean;
 
 	private OtoparkBolum otoparkBolum;

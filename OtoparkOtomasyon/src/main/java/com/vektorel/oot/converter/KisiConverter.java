@@ -3,16 +3,16 @@ package com.vektorel.oot.converter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.service.KisiService;
 
-@FacesConverter(value="kisiConverter")
-@Component
+@Controller("kisiConverter")
+@Scope("request")
 public class KisiConverter implements Converter {
 
 	@Autowired

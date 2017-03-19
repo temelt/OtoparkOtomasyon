@@ -9,6 +9,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vektorel.oot.entity.Arac;
 import com.vektorel.oot.util.BaseDao;
@@ -27,7 +28,7 @@ public class AracService {
 	private transient BaseDao baseDao;
 
 	public boolean save(Arac entity) throws Exception {
-		
+
 		if (entity.getPlaka() == null || entity.getPlaka().trim().equals("")) {
 			throw new HRException("Plaka Boþ Olmamalýdýr");
 		}
@@ -39,7 +40,7 @@ public class AracService {
 		if (entity.getPlaka() == null || entity.getPlaka().trim().equals("")) {
 			throw new HRException("Plaka Boþ Olmamalýdýr");
 		}
-		
+
 		baseDao.update(entity);
 		return true;
 	}
@@ -63,25 +64,24 @@ public class AracService {
 		return (Arac) baseDao.getById(id, Arac.class);
 	}
 
-	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
+	public PagingResult getByPaging(int first, int pageSize,
+			Map<String, Object> filters) {
 		return baseDao.getByPaging(Arac.class, first, pageSize, filters);
 	}
-	
+
 	public void setBaseDao(BaseDao baseDao) {
 		this.baseDao = baseDao;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Transactional
 	public List<Arac> acomp(String query) {
 		Session session = baseDao.getCurrentSession();
 		Criteria criteria = session.createCriteria(Arac.class);
-		criteria.add(
-				Restrictions.ilike("plaka", query,MatchMode.ANYWHERE)
-				);
-		
+		criteria.add(Restrictions.ilike("plaka", query, MatchMode.ANYWHERE));
+
 		criteria.setMaxResults(15);
 		List lst = criteria.list();
-		session.close();
 		return lst;
 	}
 }

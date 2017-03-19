@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Arac;
 import com.vektorel.oot.entity.Kisi;
@@ -25,8 +25,8 @@ import com.vektorel.oot.util.PagingResult;
  * @author ugur
  *
  */
-@ManagedBean(name="uyeBean")
-@ViewScoped
+@Controller("uyeBean")
+@Scope("view")
 public class OtoparkUyelikMBean implements Serializable{
 
 	/**
@@ -37,19 +37,19 @@ public class OtoparkUyelikMBean implements Serializable{
 	/**
 	 * Properties
 	 */
-	@ManagedProperty(value="#{uyeService}")
+	@Autowired
 	private transient OtoparkUyelikService uyelikService;
 	
-	@ManagedProperty(value="#{messageBean}")
+	@Autowired
 	private MessageMBean messageMBean;
 	
-	@ManagedProperty(value="#{yerlesimMBean}")
+	@Autowired
 	private YerlesimMBean yerlesimMBean;
 	
-	@ManagedProperty(value="#{aracService}")
+	@Autowired
 	private transient AracService aracService;
 	
-	@ManagedProperty(value="#{kisiService}")
+	@Autowired
 	private transient KisiService kisiService;
 	
 	private OtoparkUyelik uye;

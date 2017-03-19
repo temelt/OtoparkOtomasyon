@@ -9,6 +9,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vektorel.oot.entity.MarkaModel;
 import com.vektorel.oot.util.BaseDao;
@@ -74,20 +75,21 @@ public class MarkaModelService {
 		return baseDao.getByPaging(MarkaModel.class, first, pageSize, filters);
 	}
 
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
+	@Transactional
 	public MarkaModel getById(Long id) {
 		return (MarkaModel) baseDao.getById(id, MarkaModel.class);
 	}
 	
+	@Transactional
 	public MarkaModel getMarkaId(String marka) {
 		return (MarkaModel) baseDao.getMarkaAd(marka, MarkaModel.class);
 	}
 	
 
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Transactional
 	public List<MarkaModel> markaModelAcomp(String term) {
 		Session session = baseDao.getCurrentSession();
 		Criteria criteria = session.createCriteria(MarkaModel.class);
@@ -97,7 +99,6 @@ public class MarkaModelService {
 		
 		criteria.setMaxResults(15);
 		List lst = criteria.list();
-		session.close();
 		return lst;
 	}
 	

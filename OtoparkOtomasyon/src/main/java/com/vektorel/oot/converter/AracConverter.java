@@ -3,19 +3,25 @@ package com.vektorel.oot.converter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.Arac;
 import com.vektorel.oot.service.AracService;
 
-@FacesConverter(value="aracConverter")
+@Controller("aracConverter")
+@Scope("request")
 public class AracConverter implements Converter {
+	
+	@Autowired
+	private transient AracService aracService;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,String value) {
 		 if(value != null && value.trim().length() > 0) {
 	            try {
-	            	AracService aracService = (AracService) context.getExternalContext().getApplicationMap().get("aracService");
 	                return aracService .getById(Long.parseLong(value));
 	            } catch(Exception e) {
 	                e.printStackTrace();

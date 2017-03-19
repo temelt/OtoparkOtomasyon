@@ -81,7 +81,6 @@ public class BaseDao {
 
 		
 		result.setList(criteria.list());
-		session.close();
 		return result;
 	}
 	

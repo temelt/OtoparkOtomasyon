@@ -103,13 +103,13 @@
 
 						<p:outputLabel value="Araç plaka :"></p:outputLabel>
 						<p:autoComplete queryDelay="1000" value="#{uyeBean.uye.arac}"
-							converter="aracConverter" minQueryLength="3"
+							converter="#{aracConverter}" minQueryLength="3"
 							completeMethod="#{uyeBean.aracAcomp}" var="arac"
 							itemLabel="#{arac.plaka}" itemValue="#{arac}"></p:autoComplete>
 										
 						<p:outputLabel value="Kişi :"></p:outputLabel>
 						<p:autoComplete queryDelay="1000" value="#{uyeBean.uye.kisi}"
-							converter="kisiConverter" minQueryLength="3"
+							converter="#{kisiConverter}" minQueryLength="3"
 							completeMethod="#{uyeBean.kisiAcomp}" var="kisi"
 							itemLabel="#{kisi.adSoyad}" itemValue="#{kisi}"></p:autoComplete>
 
@@ -127,7 +127,7 @@
 
 						<p:outputLabel value="İl:"></p:outputLabel>
 						<p:selectOneMenu value="#{uyeBean.uye.il}" style="width:100px"
-							converter="ilConverter">
+							converter="#{ilConverter}">
 							<f:selectItems var="il" itemLabel="#{il.ad}" itemValue="#{il}"
 								value="#{yerlesimMBean.ilListesi}">
 							</f:selectItems>
@@ -137,7 +137,7 @@
 						<p:outputLabel value="İlçe:"></p:outputLabel>
 						<p:selectOneMenu widgetVar="ilce" id="ilce"
 							value="#{uyeBean.uye.ilce}" style="width:100px"
-							converter="ilceConverter">
+							converter="#{ilceConverter}">
 							<f:selectItems var="ilce" itemLabel="#{ilce.ad}"
 								itemValue="#{ilce}" value="#{yerlesimMBean.ilceListesi}">
 							</f:selectItems>

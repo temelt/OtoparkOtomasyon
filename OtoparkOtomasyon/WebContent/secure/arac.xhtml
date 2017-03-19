@@ -79,7 +79,7 @@
 				        </p:selectOneMenu>
  	
 						<p:outputLabel value="Kişi :"></p:outputLabel>
-						<p:autoComplete queryDelay="1500" value="#{aracBean.arac.kisi}" converter="kisiConverter" 
+						<p:autoComplete queryDelay="1500" value="#{aracBean.arac.kisi}" converter="#{kisiConverter}" 
 							minQueryLength="3" completeMethod="#{otoparkBean.sorumluKisiAcomp}" var="kisi" 
 							itemLabel="#{kisi.adSoyad}" itemValue="#{kisi}" ></p:autoComplete>
 
@@ -87,7 +87,7 @@
 						<p:inputText value="#{aracBean.arac.kisiAdSoyad}"></p:inputText>
 
 						<p:outputLabel value="Marka Model :"></p:outputLabel>
-						<p:autoComplete queryDelay="1500" value="#{aracBean.arac.markaModel}" converter="markaModelConverter" 
+						<p:autoComplete queryDelay="1500" value="#{aracBean.arac.markaModel}" converter="#{markaModelConverter}" 
 							minQueryLength="3" completeMethod="#{aracBean.markaModelAcomp}" var="mm" 
 							itemLabel="#{mm.tanim}" itemValue="#{mm}" ></p:autoComplete>
 												

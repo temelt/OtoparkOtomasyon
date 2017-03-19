@@ -73,7 +73,7 @@
 						<p:inputText value="#{otoparkBean.otopark.adres}"></p:inputText>
 
 						<p:outputLabel value="Sorumlu Kişi :"></p:outputLabel>
-						<p:autoComplete queryDelay="1500" value="#{otoparkBean.otopark.sorumlusu}" converter="kisiConverter" 
+						<p:autoComplete queryDelay="1500" value="#{otoparkBean.otopark.sorumlusu}" converter="#{kisiConverter}" 
 							minQueryLength="3" completeMethod="#{otoparkBean.sorumluKisiAcomp}" var="kisi" 
 							itemLabel="#{kisi.adSoyad}" itemValue="#{kisi}" ></p:autoComplete>
 						

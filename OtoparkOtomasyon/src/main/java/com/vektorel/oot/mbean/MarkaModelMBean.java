@@ -6,21 +6,21 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.primefaces.model.TreeNode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.vektorel.oot.entity.MarkaModel;
 import com.vektorel.oot.service.MarkaModelService;
 import com.vektorel.oot.util.PagingResult;
 
-@ManagedBean(name = "markaModelBean")
-@ViewScoped
+@Controller("markaModelBean")
+@Scope("view")
 public class MarkaModelMBean implements Serializable {
 
 	/**
@@ -28,10 +28,10 @@ public class MarkaModelMBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -4995887581871456268L;
 
-	@ManagedProperty(value = "#{markaModelService}")
+	@Autowired
 	private transient MarkaModelService markaModelService;
 
-	@ManagedProperty(value = "#{messageBean}")
+	@Autowired
 	private MessageMBean messageMBean;
 
 	private MarkaModel markaModel;

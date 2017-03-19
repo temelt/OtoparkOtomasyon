@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vektorel.oot.entity.OtoparkBolum;
 import com.vektorel.oot.util.BaseDao;
@@ -60,18 +61,20 @@ public class OtoparkBolumService {
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<OtoparkBolum> getAll(String query) {
 
 		return baseDao.getAll(OtoparkBolum.class);
 
 	}
 	
+	@Transactional
 	public OtoparkBolum getById(Long id) {
 		return (OtoparkBolum) baseDao.getById(id, OtoparkBolum.class);
 	}
 	
 
-	
+	@Transactional
 	public PagingResult getByPaging(int first, int pageSize, Map<String, Object> filters) {
 		return baseDao.getByPaging(OtoparkBolum.class, first, pageSize, filters);
 	}

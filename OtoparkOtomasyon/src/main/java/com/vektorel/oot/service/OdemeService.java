@@ -3,10 +3,6 @@ package com.vektorel.oot.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -17,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vektorel.oot.entity.Kisi;
 import com.vektorel.oot.entity.Odeme;
 import com.vektorel.oot.util.BaseDao;
 import com.vektorel.oot.util.OrderUtil;
