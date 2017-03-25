@@ -79,6 +79,14 @@ public class KisiService {
 	public Kisi getById(Long id) {
 		return (Kisi) baseDao.getById(id, Kisi.class);
 	}
+	
+	@Transactional
+	public Kisi getByTC(Long tc) {
+		Session session = baseDao.getCurrentSession();
+		Criteria criteria = session.createCriteria(Kisi.class);
+		criteria.add(Restrictions.eq("tc",tc));
+		return (Kisi) criteria.uniqueResult();
+	}
 
 	@Transactional
 	public PagingResult getByPaging(int first, int pageSize,

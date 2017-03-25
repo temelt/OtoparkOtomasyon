@@ -20,9 +20,10 @@
 
 	<context:component-scan base-package="com.vektorel" />
 
-	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
-<!-- 	<bean class="com.vektorel.oot.util.AspectAuditer" /> -->
+	<!-- <bean class="com.vektorel.oot.util.AspectAuditer" /> -->
 
 	<bean id="dataSource" class="org.postgresql.jdbc3.Jdbc3PoolingDataSource">
 		<property name="serverName" value="localhost" />
@@ -77,5 +78,9 @@
 	</bean>
 
 	<task:annotation-driven />
+	
+	<bean class="org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
+		<property name="baseAddress" value="http://localhost:8081/ws/" />
+	</bean>
 
 </beans>

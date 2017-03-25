@@ -1,0 +1,143 @@
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:tns="http://ws.cdyne.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://ws.cdyne.com/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Our system uses a multiple sources for resolution.  Including a host database, trace route information, and other systems.  Resolves IP addresses to Organization, Country, City, and State/Province, Latitude, Longitude.  In most US cities it will also provide some extra information such as Area Code, and more.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ws.cdyne.com/">
+      <s:element name="ResolveIP">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="ipAddress" type="s:string"></s:element>
+            <s:element maxOccurs="1" minOccurs="0" name="licenseKey" type="s:string"></s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResolveIPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="ResolveIPResult" type="tns:IPInformation"></s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="IPInformation">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="City" type="s:string"></s:element>
+          <s:element maxOccurs="1" minOccurs="0" name="StateProvince" type="s:string"></s:element>
+          <s:element maxOccurs="1" minOccurs="0" name="Country" type="s:string"></s:element>
+          <s:element maxOccurs="1" minOccurs="0" name="Organization" type="s:string"></s:element>
+          <s:element maxOccurs="1" minOccurs="1" name="Latitude" type="s:double"></s:element>
+          <s:element maxOccurs="1" minOccurs="1" name="Longitude" type="s:double"></s:element>
+          <s:element maxOccurs="1" minOccurs="0" name="AreaCode" type="s:string"></s:element>
+          <s:element maxOccurs="1" minOccurs="0" name="TimeZone" type="s:string"></s:element>
+          <s:element maxOccurs="1" minOccurs="1" name="HasDaylightSavings" type="s:boolean"></s:element>
+          <s:element maxOccurs="1" minOccurs="1" name="Certainty" type="s:short"></s:element>
+          <s:element maxOccurs="1" minOccurs="0" name="RegionName" type="s:string"></s:element>
+          <s:element maxOccurs="1" minOccurs="0" name="CountryCode" type="s:string"></s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IPInformation" nillable="true" type="tns:IPInformation"></s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ResolveIPSoapIn">
+    <wsdl:part element="tns:ResolveIP" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ResolveIPSoapOut">
+    <wsdl:part element="tns:ResolveIPResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ResolveIPHttpGetIn">
+    <wsdl:part name="ipAddress" type="s:string"></wsdl:part>
+    <wsdl:part name="licenseKey" type="s:string"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ResolveIPHttpGetOut">
+    <wsdl:part element="tns:IPInformation" name="Body"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ResolveIPHttpPostIn">
+    <wsdl:part name="ipAddress" type="s:string"></wsdl:part>
+    <wsdl:part name="licenseKey" type="s:string"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ResolveIPHttpPostOut">
+    <wsdl:part element="tns:IPInformation" name="Body"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IP2GeoSoap">
+    <wsdl:operation name="ResolveIP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Use a License Key of 0 for Testing</wsdl:documentation>
+      <wsdl:input message="tns:ResolveIPSoapIn"></wsdl:input>
+      <wsdl:output message="tns:ResolveIPSoapOut"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IP2GeoHttpGet">
+    <wsdl:operation name="ResolveIP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Use a License Key of 0 for Testing</wsdl:documentation>
+      <wsdl:input message="tns:ResolveIPHttpGetIn"></wsdl:input>
+      <wsdl:output message="tns:ResolveIPHttpGetOut"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IP2GeoHttpPost">
+    <wsdl:operation name="ResolveIP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Use a License Key of 0 for Testing</wsdl:documentation>
+      <wsdl:input message="tns:ResolveIPHttpPostIn"></wsdl:input>
+      <wsdl:output message="tns:ResolveIPHttpPostOut"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IP2GeoSoap" type="tns:IP2GeoSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="ResolveIP">
+      <soap:operation soapAction="http://ws.cdyne.com/ResolveIP" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IP2GeoSoap12" type="tns:IP2GeoSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"></soap12:binding>
+    <wsdl:operation name="ResolveIP">
+      <soap12:operation soapAction="http://ws.cdyne.com/ResolveIP" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IP2GeoHttpGet" type="tns:IP2GeoHttpGet">
+    <http:binding verb="GET"></http:binding>
+    <wsdl:operation name="ResolveIP">
+      <http:operation location="/ResolveIP"></http:operation>
+      <wsdl:input>
+        <http:urlEncoded></http:urlEncoded>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"></mime:mimeXml>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IP2GeoHttpPost" type="tns:IP2GeoHttpPost">
+    <http:binding verb="POST"></http:binding>
+    <wsdl:operation name="ResolveIP">
+      <http:operation location="/ResolveIP"></http:operation>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"></mime:mimeXml>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IP2Geo">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Our system uses a multiple sources for resolution.  Including a host database, trace route information, and other systems.  Resolves IP addresses to Organization, Country, City, and State/Province, Latitude, Longitude.  In most US cities it will also provide some extra information such as Area Code, and more.</wsdl:documentation>
+    <wsdl:port binding="tns:IP2GeoSoap" name="IP2GeoSoap">
+      <soap:address location="http://ws.cdyne.com/ip2geo/ip2geo.asmx"></soap:address>
+    </wsdl:port>
+    <wsdl:port binding="tns:IP2GeoSoap12" name="IP2GeoSoap12">
+      <soap12:address location="http://ws.cdyne.com/ip2geo/ip2geo.asmx"></soap12:address>
+    </wsdl:port>
+    <wsdl:port binding="tns:IP2GeoHttpGet" name="IP2GeoHttpGet">
+      <http:address location="http://ws.cdyne.com/ip2geo/ip2geo.asmx"></http:address>
+    </wsdl:port>
+    <wsdl:port binding="tns:IP2GeoHttpPost" name="IP2GeoHttpPost">
+      <http:address location="http://ws.cdyne.com/ip2geo/ip2geo.asmx"></http:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
