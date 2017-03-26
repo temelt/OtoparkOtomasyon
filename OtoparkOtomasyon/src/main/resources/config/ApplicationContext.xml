@@ -80,7 +80,8 @@
 	<task:annotation-driven />
 	
 	<bean class="org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
-		<property name="baseAddress" value="http://localhost:8081/ws/" />
+		<property name="baseAddress" value="http://localhost:8092/" />
+		
 	</bean>
 
 </beans>

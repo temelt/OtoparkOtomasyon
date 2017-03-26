@@ -11,7 +11,7 @@ public class ServicePublisher {
 
 //	@Autowired
 //	private transient KisiWebService kisiWebService;
-	
+//	
 //	@PostConstruct
 //	public void publish() {
 //		try {
