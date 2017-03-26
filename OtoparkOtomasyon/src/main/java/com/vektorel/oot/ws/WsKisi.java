@@ -3,6 +3,20 @@ package com.vektorel.oot.ws;
 import java.util.Date;
 
 public class WsKisi {
+	
+	public WsKisi() {
+	}
+
+	
+	public WsKisi(Long id, Long tc, String ad, String soyad, Date dogumTarihi) {
+		super();
+		this.id = id;
+		this.tc = tc;
+		this.ad = ad;
+		this.soyad = soyad;
+		this.dogumTarihi = dogumTarihi;
+	}
+
 
 	private Long id;
 	private Long tc;

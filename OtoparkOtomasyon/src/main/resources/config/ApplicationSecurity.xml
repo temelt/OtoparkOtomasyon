@@ -7,11 +7,13 @@
                         http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<http use-expressions="true">
+		<intercept-url pattern="/rs/*" access="isAnonymous()" />
+
 		<intercept-url pattern="/secure/*" access="isAuthenticated()" />
 
 		<form-login login-processing-url="/j_spring_security_check"
 			login-page="/Login.xhtml" default-target-url="/secure/dashboard.xhtml?faces-redirect=true"
-			always-use-default-target="true" authentication-failure-url="/Login.xhtml?error=true" />
+			always-use-default-target="false" authentication-failure-url="/Login.xhtml?error=true" />
 		<logout logout-success-url="/Login.xhtml" invalidate-session="true" />
 		<remember-me />
 		<access-denied-handler error-page="/accessDenied.xhtml" />
@@ -19,7 +21,8 @@
 		<session-management invalid-session-url="/Login.xhtml">
 		</session-management>
 		<session-management>
-			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+			<concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" />
 		</session-management>
 
 	</http>
