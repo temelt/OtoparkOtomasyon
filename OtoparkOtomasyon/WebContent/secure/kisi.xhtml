@@ -75,6 +75,9 @@
 					        update=":frmKisi:dlgKisi" oncomplete="PF('dlgKisi').show()"></p:commandButton>
 					        <p:commandButton value="Sync" actionListener="#{kisiBean.senkronizasyon}" ></p:commandButton>
 						<p:commandButton onclick="PF('tblKisi').clearFilters()" value="Filtreleri Temizle"/>
+						<p:commandButton action="#{kisiBean.raporAl(1)}" ajax="false" value="PDF"/>
+						<p:commandButton action="#{kisiBean.raporAl(2)}" ajax="false" value="Excel"/>
+						<p:commandButton action="#{kisiBean.raporAl(3)}" ajax="false" value="Docx"/>
 					</f:facet>
 				</p:dataTable>
 

@@ -17,6 +17,7 @@ import com.vektorel.oot.service.KisiService;
 import com.vektorel.oot.util.Ayarlar;
 import com.vektorel.oot.util.OrderUtil;
 import com.vektorel.oot.util.PagingResult;
+import com.vektorel.oot.util.RptEnum;
 
 /**
  * 
@@ -43,6 +44,8 @@ public class KisiController implements Serializable{
 	
 	@Autowired
 	private transient YerlesimMBean yerlesimMBean;
+	@Autowired
+	private RaporController raporController;
 	
 	@Autowired
 	private Ayarlar ayarlar;
@@ -81,6 +84,17 @@ public class KisiController implements Serializable{
 	public void senkronizasyon() {
 		kisiService.asyncMetod();
 	}
+	
+	public void raporAl(int t) {
+		if(t==1){
+			raporController.kisiRapor(RptEnum.PDF);
+		}else if(t==2){
+			raporController.kisiRapor(RptEnum.EXCEL);	
+		}else{
+			raporController.kisiRapor(RptEnum.DOCX);
+		}
+	}
+	
 	
 	public void seciliKayit(Long id) {
 		this.kisi = kisiService.getById(id);

@@ -30,10 +30,10 @@ public class AspectAuditer implements Serializable{
 		}
 	}
 	
-	@After("execution(* com.vektorel.oot.*.*.*(..))")
-	public void afterSaving(JoinPoint joinPoint) {
-		System.out.println("afterSaving Çaðrýldý");
-	}
+//	@After("execution(* com.vektorel.oot.*.*.*(..))")
+//	public void afterSaving(JoinPoint joinPoint) {
+//		System.out.println("afterSaving Çaðrýldý");
+//	}
 	
 	@Before("execution(* com.vektorel.oot.util.BaseDao.update(..))")
 	public void beforeUpdating(JoinPoint joinPoint) {
